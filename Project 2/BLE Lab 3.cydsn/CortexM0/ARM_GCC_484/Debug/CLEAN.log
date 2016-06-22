@@ -1,0 +1,7 @@
+--------------- Clean Started: 07/01/2015 14:37:54 Project: BLE Lab 3, Configuration: ARM GCC 4.8.4 Debug ---------------
+Deleting file ".\CortexM0\ARM_GCC_484\Debug\main.o"
+Deleting file ".\BLE Lab 3.cycdx"
+Deleting file ".\BLE Lab 3.svd"
+Deleting file ".\BLE Lab 3.rpt"
+Deleting file ".\BLE Lab 3_timing.html"
+--------------- Clean Succeeded: 07/01/2015 14:37:54 ---------------
