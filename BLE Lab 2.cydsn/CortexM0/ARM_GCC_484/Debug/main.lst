@@ -1,0 +1,1233 @@
+ARM GAS  C:\Users\KEVINH~1\AppData\Local\Temp\ccXCxcTH.s 			page 1
+
+
+   1              		.cpu cortex-m0
+   2              		.fpu softvfp
+   3              		.eabi_attribute 20, 1
+   4              		.eabi_attribute 21, 1
+   5              		.eabi_attribute 23, 3
+   6              		.eabi_attribute 24, 1
+   7              		.eabi_attribute 25, 1
+   8              		.eabi_attribute 26, 1
+   9              		.eabi_attribute 30, 6
+  10              		.eabi_attribute 34, 0
+  11              		.eabi_attribute 18, 4
+  12              		.code	16
+  13              		.file	"main.c"
+  14              		.text
+  15              	.Ltext0:
+  16              		.cfi_sections	.debug_frame
+  17              		.section	.text.InitializeSystem,"ax",%progbits
+  18              		.align	2
+  19              		.code	16
+  20              		.thumb_func
+  21              		.type	InitializeSystem, %function
+  22              	InitializeSystem:
+  23              	.LFB35:
+  24              		.file 1 ".\\main.c"
+   1:.\main.c      **** /*****************************************************************************
+   2:.\main.c      **** * File Name: main.c
+   3:.\main.c      **** *
+   4:.\main.c      **** * Version: 1.0
+   5:.\main.c      **** *
+   6:.\main.c      **** * Description:
+   7:.\main.c      **** * This is the top level file for the PSoC 4 BLE Lab 3.
+   8:.\main.c      **** *
+   9:.\main.c      **** * Hardware Dependency:
+  10:.\main.c      **** * CY8CKIT-042 BLE Pioneer Kit
+  11:.\main.c      **** *
+  12:.\main.c      **** ******************************************************************************
+  13:.\main.c      **** * Copyright (2014), Cypress Semiconductor Corporation.
+  14:.\main.c      **** ******************************************************************************
+  15:.\main.c      **** * This software is owned by Cypress Semiconductor Corporation (Cypress) and is
+  16:.\main.c      **** * protected by and subject to worldwide patent protection (United States and
+  17:.\main.c      **** * foreign), United States copyright laws and international treaty provisions.
+  18:.\main.c      **** * Cypress hereby grants to licensee a personal, non-exclusive, non-transferable
+  19:.\main.c      **** * license to copy, use, modify, create derivative works of, and compile the
+  20:.\main.c      **** * Cypress Source Code and derivative works for the sole purpose of creating
+  21:.\main.c      **** * custom software in support of licensee product to be used only in conjunction
+  22:.\main.c      **** * with a Cypress integrated circuit as specified in the applicable agreement.
+  23:.\main.c      **** * Any reproduction, modification, translation, compilation, or representation of
+  24:.\main.c      **** * this software except as specified above is prohibited without the express
+  25:.\main.c      **** * written permission of Cypress.
+  26:.\main.c      **** *
+  27:.\main.c      **** * Disclaimer: CYPRESS MAKES NO WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, WITH
+  28:.\main.c      **** * REGARD TO THIS MATERIAL, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
+  29:.\main.c      **** * WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE.
+  30:.\main.c      **** * Cypress reserves the right to make changes without further notice to the
+  31:.\main.c      **** * materials described herein. Cypress does not assume any liability arising out
+  32:.\main.c      **** * of the application or use of any product or circuit described herein. Cypress
+  33:.\main.c      **** * does not authorize its products for use as critical components in life-support
+ARM GAS  C:\Users\KEVINH~1\AppData\Local\Temp\ccXCxcTH.s 			page 2
+
+
+  34:.\main.c      **** * systems where a malfunction or failure may reasonably be expected to result in
+  35:.\main.c      **** * significant injury to the user. The inclusion of Cypress' product in a life-
+  36:.\main.c      **** * support systems application implies that the manufacturer assumes all risk of
+  37:.\main.c      **** * such use and in doing so indemnifies Cypress against all charges. Use may be
+  38:.\main.c      **** * limited by and subject to the applicable Cypress software license agreement.
+  39:.\main.c      **** *****************************************************************************/
+  40:.\main.c      **** 
+  41:.\main.c      **** 
+  42:.\main.c      **** /*****************************************************************************
+  43:.\main.c      **** * Included headers
+  44:.\main.c      **** *****************************************************************************/
+  45:.\main.c      **** #include <project.h>
+  46:.\main.c      **** #include <stdbool.h>
+  47:.\main.c      **** #include "main.h"
+  48:.\main.c      **** #include "HeartRateProcessing.h"
+  49:.\main.c      **** #include "BleProcessing.h"
+  50:.\main.c      **** #include "WatchdogTimer.h"
+  51:.\main.c      **** 
+  52:.\main.c      **** 
+  53:.\main.c      **** /*****************************************************************************
+  54:.\main.c      **** * Macros
+  55:.\main.c      **** *****************************************************************************/
+  56:.\main.c      **** #if CONNECTION_PARAM_UPDATE
+  57:.\main.c      **** #define TIME_SINCE_CONNECTED_MS         (5000)
+  58:.\main.c      **** #endif
+  59:.\main.c      **** 
+  60:.\main.c      **** /*****************************************************************************
+  61:.\main.c      **** * Global variables
+  62:.\main.c      **** *****************************************************************************/
+  63:.\main.c      **** #if CONNECTION_PARAM_UPDATE
+  64:.\main.c      **** static CYBLE_GAP_CONN_UPDATE_PARAM_T hrmConnectionParam =
+  65:.\main.c      **** {
+  66:.\main.c      ****     16,         /* Minimum connection interval of 20 ms */
+  67:.\main.c      ****     16,         /* Maximum connection interval of 20 ms */
+  68:.\main.c      ****     49,         /* Slave latency of 49 */
+  69:.\main.c      ****     500         /* Supervision timeout of 5 seconds */
+  70:.\main.c      **** };
+  71:.\main.c      **** #endif
+  72:.\main.c      **** 
+  73:.\main.c      **** 
+  74:.\main.c      **** /*****************************************************************************
+  75:.\main.c      **** * Static function definitions
+  76:.\main.c      **** *****************************************************************************/
+  77:.\main.c      **** 
+  78:.\main.c      **** /*****************************************************************************
+  79:.\main.c      **** * Function Name: InitializeSystem
+  80:.\main.c      **** ******************************************************************************
+  81:.\main.c      **** * Summary:
+  82:.\main.c      **** * Initializes all the blocks of the system.
+  83:.\main.c      **** *
+  84:.\main.c      **** * Parameters:
+  85:.\main.c      **** * None
+  86:.\main.c      **** *
+  87:.\main.c      **** * Return:
+  88:.\main.c      **** * None
+  89:.\main.c      **** *
+  90:.\main.c      **** * Theory:
+ARM GAS  C:\Users\KEVINH~1\AppData\Local\Temp\ccXCxcTH.s 			page 3
+
+
+  91:.\main.c      **** * The function enables the Opamp and ADC for the heart rate measurement, and 
+  92:.\main.c      **** * setups the BLE component. It also starts the watchdog timer and ensures that 
+  93:.\main.c      **** * all the status LEDs are off at system startup. 
+  94:.\main.c      **** *
+  95:.\main.c      **** * Side Effects:
+  96:.\main.c      **** * None
+  97:.\main.c      **** *
+  98:.\main.c      **** *****************************************************************************/
+  99:.\main.c      **** static void InitializeSystem(void)
+ 100:.\main.c      **** {
+  25              		.loc 1 100 0
+  26              		.cfi_startproc
+  27 0000 80B5     		push	{r7, lr}
+  28              		.cfi_def_cfa_offset 8
+  29              		.cfi_offset 7, -8
+  30              		.cfi_offset 14, -4
+  31 0002 00AF     		add	r7, sp, #0
+  32              		.cfi_def_cfa_register 7
+ 101:.\main.c      ****     #if (RGB_LED_IN_PROJECT)
+ 102:.\main.c      ****         /* Turn off all LEDs */
+ 103:.\main.c      ****         Led_Advertising_Green_Write(1);
+  33              		.loc 1 103 0
+  34 0004 0120     		mov	r0, #1
+  35 0006 FFF7FEFF 		bl	Led_Advertising_Green_Write
+ 104:.\main.c      ****         Led_Connected_Blue_Write(1);
+  36              		.loc 1 104 0
+  37 000a 0120     		mov	r0, #1
+  38 000c FFF7FEFF 		bl	Led_Connected_Blue_Write
+ 105:.\main.c      ****     #endif  /* #if (RGB_LED_IN_PROJECT) */
+ 106:.\main.c      **** 
+ 107:.\main.c      ****     /* Enabling Global interrupts */
+ 108:.\main.c      ****     CyGlobalIntEnable; 
+  39              		.loc 1 108 0
+  40              	@ 108 ".\main.c" 1
+  41 0010 62B6     		CPSIE   i
+  42              	@ 0 "" 2
+ 109:.\main.c      **** 	
+ 110:.\main.c      ****     /* Start Opamp and ADC components */
+ 111:.\main.c      **** 	Opamp_Start();
+  43              		.loc 1 111 0
+  44              		.code	16
+  45 0012 FFF7FEFF 		bl	Opamp_Start
+ 112:.\main.c      ****     ADC_Start();
+  46              		.loc 1 112 0
+  47 0016 FFF7FEFF 		bl	ADC_Start
+ 113:.\main.c      **** 	
+ 114:.\main.c      ****     /* Start BLE component */
+ 115:.\main.c      ****     CyBle_Start(GeneralEventHandler);
+  48              		.loc 1 115 0
+  49 001a 064B     		ldr	r3, .L2
+  50 001c 181C     		mov	r0, r3
+  51 001e FFF7FEFF 		bl	CyBle_Start
+ 116:.\main.c      ****         
+ 117:.\main.c      ****     /* Register the Heart Rate Service event handler callback. The function
+ 118:.\main.c      ****      * to be registered is HrsEventHandler().
+ 119:.\main.c      ****      */
+ 120:.\main.c      **** 	CyBle_HrsRegisterAttrCallback(HrsEventHandler); 
+ARM GAS  C:\Users\KEVINH~1\AppData\Local\Temp\ccXCxcTH.s 			page 4
+
+
+  52              		.loc 1 120 0
+  53 0022 054B     		ldr	r3, .L2+4
+  54 0024 181C     		mov	r0, r3
+  55 0026 FFF7FEFF 		bl	CyBle_HrsRegisterAttrCallback
+ 121:.\main.c      ****     
+ 122:.\main.c      ****     /* Start the Watchdog Timer */
+ 123:.\main.c      **** 	WatchdogTimer_Start();
+  56              		.loc 1 123 0
+  57 002a FFF7FEFF 		bl	WatchdogTimer_Start
+ 124:.\main.c      **** }
+  58              		.loc 1 124 0
+  59 002e BD46     		mov	sp, r7
+  60              		@ sp needed
+  61 0030 80BD     		pop	{r7, pc}
+  62              	.L3:
+  63 0032 C046     		.align	2
+  64              	.L2:
+  65 0034 00000000 		.word	GeneralEventHandler
+  66 0038 00000000 		.word	HrsEventHandler
+  67              		.cfi_endproc
+  68              	.LFE35:
+  69              		.size	InitializeSystem, .-InitializeSystem
+  70              		.section	.text.main,"ax",%progbits
+  71              		.align	2
+  72              		.global	main
+  73              		.code	16
+  74              		.thumb_func
+  75              		.type	main, %function
+  76              	main:
+  77              	.LFB36:
+ 125:.\main.c      **** 
+ 126:.\main.c      **** 
+ 127:.\main.c      **** /*****************************************************************************
+ 128:.\main.c      **** * Public function definitions
+ 129:.\main.c      **** *****************************************************************************/
+ 130:.\main.c      **** 
+ 131:.\main.c      **** /*****************************************************************************
+ 132:.\main.c      **** * Function Name: main
+ 133:.\main.c      **** ******************************************************************************
+ 134:.\main.c      **** * Summary:
+ 135:.\main.c      **** * The main function for the project.
+ 136:.\main.c      **** *
+ 137:.\main.c      **** * Parameters:
+ 138:.\main.c      **** * None
+ 139:.\main.c      **** *
+ 140:.\main.c      **** * Return:
+ 141:.\main.c      **** * None
+ 142:.\main.c      **** *
+ 143:.\main.c      **** * Theory:
+ 144:.\main.c      **** * The main function first calls the initialization function to start the 
+ 145:.\main.c      **** * system, and then enters a loop to run forever. In the main loop, it scans
+ 146:.\main.c      **** * the heart rate first, then sends a notification packet every second to a 
+ 147:.\main.c      **** * BLE connected device. It then enters low power (deep sleep) state, waiting
+ 148:.\main.c      **** * for the periodic wakeup interrupt from watchdog timer.
+ 149:.\main.c      **** * When the device is disconnected or when advertisement timeout happens, 
+ 150:.\main.c      **** * the device enters Hibernate mode, waiting for the SW2 switch press to wakeup.
+ 151:.\main.c      **** *
+ARM GAS  C:\Users\KEVINH~1\AppData\Local\Temp\ccXCxcTH.s 			page 5
+
+
+ 152:.\main.c      **** * Side Effects:
+ 153:.\main.c      **** * None
+ 154:.\main.c      **** *
+ 155:.\main.c      **** *****************************************************************************/
+ 156:.\main.c      **** int main()
+ 157:.\main.c      **** {
+  78              		.loc 1 157 0
+  79              		.cfi_startproc
+  80 0000 90B5     		push	{r4, r7, lr}
+  81              		.cfi_def_cfa_offset 12
+  82              		.cfi_offset 4, -12
+  83              		.cfi_offset 7, -8
+  84              		.cfi_offset 14, -4
+  85 0002 83B0     		sub	sp, sp, #12
+  86              		.cfi_def_cfa_offset 24
+  87 0004 00AF     		add	r7, sp, #0
+  88              		.cfi_def_cfa_register 7
+ 158:.\main.c      ****     static uint32 previousTimestamp = 0;
+ 159:.\main.c      ****     static uint32 currentTimestamp = 0;
+ 160:.\main.c      ****     CYBLE_LP_MODE_T bleMode;
+ 161:.\main.c      ****     uint8 interruptStatus;
+ 162:.\main.c      ****     
+ 163:.\main.c      ****     /* Initialize all blocks of the system */
+ 164:.\main.c      **** 	InitializeSystem();
+  89              		.loc 1 164 0
+  90 0006 FFF7FEFF 		bl	InitializeSystem
+  91              	.L13:
+ 165:.\main.c      ****     
+ 166:.\main.c      ****     /* Run forever */
+ 167:.\main.c      ****     for(;;)
+ 168:.\main.c      ****     {
+ 169:.\main.c      ****         /* Wake up Opamp from low power mode */
+ 170:.\main.c      ****         /* This API has not effect when Opamp is operating in deep sleep mode */
+ 171:.\main.c      ****         Opamp_Wakeup();
+  92              		.loc 1 171 0
+  93 000a FFF7FEFF 		bl	Opamp_Wakeup
+ 172:.\main.c      ****         
+ 173:.\main.c      ****         /* Wake up ADC from low power mode */
+ 174:.\main.c      ****         ADC_Wakeup();
+  94              		.loc 1 174 0
+  95 000e FFF7FEFF 		bl	ADC_Wakeup
+ 175:.\main.c      **** 
+ 176:.\main.c      ****         /* Analog Front End. 
+ 177:.\main.c      ****          * Detects the input signal and measures Heart Rate 
+ 178:.\main.c      ****          */
+ 179:.\main.c      ****         ProcessHeartRateSignal();
+  96              		.loc 1 179 0
+  97 0012 FFF7FEFF 		bl	ProcessHeartRateSignal
+ 180:.\main.c      **** 
+ 181:.\main.c      ****         /* Put ADC in low power mode */
+ 182:.\main.c      ****         ADC_Sleep();
+  98              		.loc 1 182 0
+  99 0016 FFF7FEFF 		bl	ADC_Sleep
+ 183:.\main.c      ****         
+ 184:.\main.c      ****         /* Put Opamp in low power mode */
+ 185:.\main.c      ****         /* This API has not effect when Opamp is operating in deep sleep mode */
+ 186:.\main.c      ****         Opamp_Sleep();
+ARM GAS  C:\Users\KEVINH~1\AppData\Local\Temp\ccXCxcTH.s 			page 6
+
+
+ 100              		.loc 1 186 0
+ 101 001a FFF7FEFF 		bl	Opamp_Sleep
+ 187:.\main.c      ****         
+ 188:.\main.c      ****         /* Measure the current system timestamp from watchdog timer */
+ 189:.\main.c      ****         currentTimestamp = WatchdogTimer_GetTimestamp();        
+ 102              		.loc 1 189 0
+ 103 001e FFF7FEFF 		bl	WatchdogTimer_GetTimestamp
+ 104 0022 021C     		mov	r2, r0
+ 105 0024 2E4B     		ldr	r3, .L14
+ 106 0026 1A60     		str	r2, [r3]
+ 190:.\main.c      ****         
+ 191:.\main.c      ****         #if CONNECTION_PARAM_UPDATE
+ 192:.\main.c      ****         /* Update BLE connection parameters a few seconds after connection */
+ 193:.\main.c      ****         if((CyBle_GetState() == CYBLE_STATE_CONNECTED) && 
+ 194:.\main.c      ****            (connParamRequestState == CONN_PARAM_REQUEST_NOT_SENT))
+ 195:.\main.c      ****         {
+ 196:.\main.c      ****             if((currentTimestamp - timestampWhenConnected) > TIME_SINCE_CONNECTED_MS)
+ 197:.\main.c      ****             {
+ 198:.\main.c      ****                 CyBle_L2capLeConnectionParamUpdateRequest(cyBle_connHandle.bdHandle, &hrmConnection
+ 199:.\main.c      ****                 connParamRequestState = CONN_PARAM_REQUEST_SENT;
+ 200:.\main.c      ****             }
+ 201:.\main.c      ****         }        
+ 202:.\main.c      ****         #endif
+ 203:.\main.c      ****         
+ 204:.\main.c      ****         /* Send Heart Rate notification over BLE every second.
+ 205:.\main.c      ****          * Check if the current timestamp minus previous exceeds 1000 ms.
+ 206:.\main.c      ****          */
+ 207:.\main.c      ****         if((currentTimestamp - previousTimestamp) >= 1000)
+ 107              		.loc 1 207 0
+ 108 0028 2D4B     		ldr	r3, .L14
+ 109 002a 1A68     		ldr	r2, [r3]
+ 110 002c 2D4B     		ldr	r3, .L14+4
+ 111 002e 1B68     		ldr	r3, [r3]
+ 112 0030 D21A     		sub	r2, r2, r3
+ 113 0032 2D4B     		ldr	r3, .L14+8
+ 114 0034 9A42     		cmp	r2, r3
+ 115 0036 06D9     		bls	.L5
+ 208:.\main.c      ****         {
+ 209:.\main.c      ****             /* Call API defined in BleProcessing.c to send 
+ 210:.\main.c      ****              * notification over BLE.
+ 211:.\main.c      ****              */
+ 212:.\main.c      ****             SendHeartRateOverBLE();
+ 116              		.loc 1 212 0
+ 117 0038 FFF7FEFF 		bl	SendHeartRateOverBLE
+ 213:.\main.c      ****             
+ 214:.\main.c      ****             /* Update the previous timestamp with the current timestamp. */
+ 215:.\main.c      ****             previousTimestamp = currentTimestamp;
+ 118              		.loc 1 215 0
+ 119 003c 284B     		ldr	r3, .L14
+ 120 003e 1A68     		ldr	r2, [r3]
+ 121 0040 284B     		ldr	r3, .L14+4
+ 122 0042 1A60     		str	r2, [r3]
+ 216:.\main.c      ****         }
+ 217:.\main.c      **** 
+ 218:.\main.c      ****         /* Try to stay in low power mode until the next watchdog interrupt */
+ 219:.\main.c      ****         while(WatchdogTimer_GetTimestamp() == currentTimestamp)
+ 123              		.loc 1 219 0
+ARM GAS  C:\Users\KEVINH~1\AppData\Local\Temp\ccXCxcTH.s 			page 7
+
+
+ 124 0044 2AE0     		b	.L6
+ 125              	.L5:
+ 126 0046 29E0     		b	.L6
+ 127              	.L11:
+ 220:.\main.c      ****         {
+ 221:.\main.c      ****             /* Process any pending BLE events */
+ 222:.\main.c      ****             CyBle_ProcessEvents();
+ 128              		.loc 1 222 0
+ 129 0048 FFF7FEFF 		bl	CyBle_ProcessEvents
+ 223:.\main.c      ****             
+ 224:.\main.c      ****             /* The idea of low power operation is to first request the BLE 
+ 225:.\main.c      ****              * block go to Deep Sleep, and then check whether it actually
+ 226:.\main.c      ****              * entered Deep Sleep. This is important because the BLE block
+ 227:.\main.c      ****              * runs asynchronous to the rest of the application and thus
+ 228:.\main.c      ****              * could be busy/idle independent of the application state. 
+ 229:.\main.c      ****              * 
+ 230:.\main.c      ****              * Once the BLE block is in Deep Sleep, only then the system 
+ 231:.\main.c      ****              * can enter Deep Sleep. This is important to maintain the BLE 
+ 232:.\main.c      ****              * connection alive while being in Deep Sleep.
+ 233:.\main.c      ****              */
+ 234:.\main.c      **** 
+ 235:.\main.c      ****             
+ 236:.\main.c      ****             /* Request the BLE block to enter Deep Sleep */
+ 237:.\main.c      ****             bleMode = CyBle_EnterLPM(CYBLE_BLESS_DEEPSLEEP);
+ 130              		.loc 1 237 0
+ 131 004c FC1D     		add	r4, r7, #7
+ 132 004e 0320     		mov	r0, #3
+ 133 0050 FFF7FEFF 		bl	CyBle_EnterLPM
+ 134 0054 031C     		mov	r3, r0
+ 135 0056 2370     		strb	r3, [r4]
+ 238:.\main.c      **** 
+ 239:.\main.c      ****             
+ 240:.\main.c      ****             /* Check if the BLE block entered Deep Sleep and if so, then the 
+ 241:.\main.c      ****              * system can enter Deep Sleep. This is done inside a Critical 
+ 242:.\main.c      ****              * Section (where global interrupts are disabled) to avoid a 
+ 243:.\main.c      ****              * race condition between application main (that wants to go to 
+ 244:.\main.c      ****              * Deep Sleep) and other interrupts (which keep the device from 
+ 245:.\main.c      ****              * going to Deep Sleep). 
+ 246:.\main.c      ****              */
+ 247:.\main.c      ****             interruptStatus = CyEnterCriticalSection();
+ 136              		.loc 1 247 0
+ 137 0058 BC1D     		add	r4, r7, #6
+ 138 005a FFF7FEFF 		bl	CyEnterCriticalSection
+ 139 005e 031C     		mov	r3, r0
+ 140 0060 2370     		strb	r3, [r4]
+ 248:.\main.c      ****             
+ 249:.\main.c      ****             /* Check if the BLE block entered Deep Sleep */
+ 250:.\main.c      ****             if(CYBLE_BLESS_DEEPSLEEP == bleMode)
+ 141              		.loc 1 250 0
+ 142 0062 FB1D     		add	r3, r7, #7
+ 143 0064 1B78     		ldrb	r3, [r3]
+ 144 0066 032B     		cmp	r3, #3
+ 145 0068 0CD1     		bne	.L7
+ 251:.\main.c      ****             {
+ 252:.\main.c      ****                 /* Check the current state of BLE - System can enter Deep Sleep
+ 253:.\main.c      ****                  * only when the BLE block is starting the ECO (during 
+ 254:.\main.c      ****                  * pre-processing for a new connection event) or when it is 
+ARM GAS  C:\Users\KEVINH~1\AppData\Local\Temp\ccXCxcTH.s 			page 8
+
+
+ 255:.\main.c      ****                  * idle.
+ 256:.\main.c      ****                  */
+ 257:.\main.c      ****                 if((CyBle_GetBleSsState() == CYBLE_BLESS_STATE_ECO_ON) ||
+ 146              		.loc 1 257 0
+ 147 006a FFF7FEFF 		bl	CyBle_GetBleSsState
+ 148 006e 031C     		mov	r3, r0
+ 149 0070 042B     		cmp	r3, #4
+ 150 0072 04D0     		beq	.L8
+ 258:.\main.c      ****                    (CyBle_GetBleSsState() == CYBLE_BLESS_STATE_DEEPSLEEP))
+ 151              		.loc 1 258 0 discriminator 1
+ 152 0074 FFF7FEFF 		bl	CyBle_GetBleSsState
+ 153 0078 031C     		mov	r3, r0
+ 257:.\main.c      ****                 if((CyBle_GetBleSsState() == CYBLE_BLESS_STATE_ECO_ON) ||
+ 154              		.loc 1 257 0 discriminator 1
+ 155 007a 062B     		cmp	r3, #6
+ 156 007c 09D1     		bne	.L10
+ 157              	.L8:
+ 259:.\main.c      ****                 {
+ 260:.\main.c      ****                     CySysPmDeepSleep();
+ 158              		.loc 1 260 0
+ 159 007e FFF7FEFF 		bl	CySysPmDeepSleep
+ 160 0082 06E0     		b	.L10
+ 161              	.L7:
+ 261:.\main.c      ****                 }
+ 262:.\main.c      ****             }
+ 263:.\main.c      ****             /* The else condition signifies that the BLE block cannot enter 
+ 264:.\main.c      ****              * Deep Sleep and is in Active mode.  
+ 265:.\main.c      ****              */
+ 266:.\main.c      ****             else
+ 267:.\main.c      ****             {
+ 268:.\main.c      ****                 /* At this point, the CPU can enter Sleep, but Deep Sleep is not
+ 269:.\main.c      ****                  * allowed. 
+ 270:.\main.c      ****                  * There is one exception - at a connection event, when the BLE 
+ 271:.\main.c      ****                  * Rx/Tx has just finished, and the post processing for the 
+ 272:.\main.c      ****                  * connection event is ongoing, the CPU cannot go to sleep.
+ 273:.\main.c      ****                  * The CPU should wait in Active mode until the post processing 
+ 274:.\main.c      ****                  * is complete while continuously polling the BLE low power 
+ 275:.\main.c      ****                  * entry. As soon as post processing is complete, the BLE block 
+ 276:.\main.c      ****                  * would enter Deep Sleep (because of the polling) and the 
+ 277:.\main.c      ****                  * system Deep Sleep would then be entered. Deep Sleep is the 
+ 278:.\main.c      ****                  * preferred low power mode since it takes much lesser current.
+ 279:.\main.c      ****                  */
+ 280:.\main.c      ****                 if(CyBle_GetBleSsState() != CYBLE_BLESS_STATE_EVENT_CLOSE)
+ 162              		.loc 1 280 0
+ 163 0084 FFF7FEFF 		bl	CyBle_GetBleSsState
+ 164 0088 031C     		mov	r3, r0
+ 165 008a 022B     		cmp	r3, #2
+ 166 008c 01D0     		beq	.L10
+ 281:.\main.c      ****                 {
+ 282:.\main.c      ****                     CySysPmSleep();
+ 167              		.loc 1 282 0
+ 168 008e FFF7FEFF 		bl	CySysPmSleep
+ 169              	.L10:
+ 283:.\main.c      ****                 }
+ 284:.\main.c      ****             }
+ 285:.\main.c      ****             
+ 286:.\main.c      ****             /* Exit Critical section - Global interrupts are enabled again */
+ARM GAS  C:\Users\KEVINH~1\AppData\Local\Temp\ccXCxcTH.s 			page 9
+
+
+ 287:.\main.c      ****             CyExitCriticalSection(interruptStatus);
+ 170              		.loc 1 287 0
+ 171 0092 BB1D     		add	r3, r7, #6
+ 172 0094 1B78     		ldrb	r3, [r3]
+ 173 0096 181C     		mov	r0, r3
+ 174 0098 FFF7FEFF 		bl	CyExitCriticalSection
+ 175              	.L6:
+ 219:.\main.c      ****         while(WatchdogTimer_GetTimestamp() == currentTimestamp)
+ 176              		.loc 1 219 0 discriminator 1
+ 177 009c FFF7FEFF 		bl	WatchdogTimer_GetTimestamp
+ 178 00a0 021C     		mov	r2, r0
+ 179 00a2 0F4B     		ldr	r3, .L14
+ 180 00a4 1B68     		ldr	r3, [r3]
+ 181 00a6 9A42     		cmp	r2, r3
+ 182 00a8 CED0     		beq	.L11
+ 288:.\main.c      ****         }
+ 289:.\main.c      **** 
+ 290:.\main.c      ****         /* Hibernate entry point - Hibernate is entered upon a BLE disconnect
+ 291:.\main.c      ****          * event or advertisement timeout. Wakeup happens via SW2 switch press, 
+ 292:.\main.c      ****          * upon which the execution starts from the first line of code. 
+ 293:.\main.c      ****          * The I/O state, RAM and UDBs are retained during Hibernate.
+ 294:.\main.c      ****          */
+ 295:.\main.c      ****         if(enterHibernateFlag)
+ 183              		.loc 1 295 0
+ 184 00aa 104B     		ldr	r3, .L14+12
+ 185 00ac 1B78     		ldrb	r3, [r3]
+ 186 00ae 002B     		cmp	r3, #0
+ 187 00b0 14D0     		beq	.L12
+ 296:.\main.c      ****         {
+ 297:.\main.c      ****             /* Stop the BLE component */
+ 298:.\main.c      ****             CyBle_Stop();
+ 188              		.loc 1 298 0
+ 189 00b2 FFF7FEFF 		bl	CyBle_Stop
+ 299:.\main.c      ****             
+ 300:.\main.c      ****             /* Enable the Hibernate wakeup functionality */
+ 301:.\main.c      ****             SW2_Switch_ClearInterrupt();
+ 190              		.loc 1 301 0
+ 191 00b6 FFF7FEFF 		bl	SW2_Switch_ClearInterrupt
+ 302:.\main.c      ****             Wakeup_ISR_Start();
+ 192              		.loc 1 302 0
+ 193 00ba FFF7FEFF 		bl	Wakeup_ISR_Start
+ 303:.\main.c      ****             
+ 304:.\main.c      ****             #if (RGB_LED_IN_PROJECT)
+ 305:.\main.c      ****                 /* Turn off Green and Blue LEDs to indicate Hibernate */
+ 306:.\main.c      ****                 Led_Advertising_Green_Write(1);
+ 194              		.loc 1 306 0
+ 195 00be 0120     		mov	r0, #1
+ 196 00c0 FFF7FEFF 		bl	Led_Advertising_Green_Write
+ 307:.\main.c      ****                 Led_Connected_Blue_Write(1);
+ 197              		.loc 1 307 0
+ 198 00c4 0120     		mov	r0, #1
+ 199 00c6 FFF7FEFF 		bl	Led_Connected_Blue_Write
+ 308:.\main.c      ****                 
+ 309:.\main.c      ****                 /* Change the GPIO state to High-Z */
+ 310:.\main.c      ****                 Led_Advertising_Green_SetDriveMode(Led_Advertising_Green_DM_ALG_HIZ);
+ 200              		.loc 1 310 0
+ 201 00ca 0020     		mov	r0, #0
+ARM GAS  C:\Users\KEVINH~1\AppData\Local\Temp\ccXCxcTH.s 			page 10
+
+
+ 202 00cc FFF7FEFF 		bl	Led_Advertising_Green_SetDriveMode
+ 311:.\main.c      ****                 Led_Connected_Blue_SetDriveMode(Led_Connected_Blue_DM_ALG_HIZ);
+ 203              		.loc 1 311 0
+ 204 00d0 0020     		mov	r0, #0
+ 205 00d2 FFF7FEFF 		bl	Led_Connected_Blue_SetDriveMode
+ 312:.\main.c      ****             #endif  /* #if (RGB_LED_IN_PROJECT) */
+ 313:.\main.c      ****             
+ 314:.\main.c      ****             /* Enter hibernate mode */
+ 315:.\main.c      ****             CySysPmHibernate();
+ 206              		.loc 1 315 0
+ 207 00d6 FFF7FEFF 		bl	CySysPmHibernate
+ 316:.\main.c      ****         }
+ 317:.\main.c      ****     }
+ 208              		.loc 1 317 0
+ 209 00da 96E7     		b	.L13
+ 210              	.L12:
+ 211 00dc 95E7     		b	.L13
+ 212              	.L15:
+ 213 00de C046     		.align	2
+ 214              	.L14:
+ 215 00e0 00000000 		.word	currentTimestamp.6598
+ 216 00e4 04000000 		.word	previousTimestamp.6597
+ 217 00e8 E7030000 		.word	999
+ 218 00ec 00000000 		.word	enterHibernateFlag
+ 219              		.cfi_endproc
+ 220              	.LFE36:
+ 221              		.size	main, .-main
+ 222              		.bss
+ 223              		.align	2
+ 224              	currentTimestamp.6598:
+ 225 0000 00000000 		.space	4
+ 226              		.align	2
+ 227              	previousTimestamp.6597:
+ 228 0004 00000000 		.space	4
+ 229              		.text
+ 230              	.Letext0:
+ 231              		.file 2 "Generated_Source\\PSoC4/cytypes.h"
+ 232              		.file 3 "Generated_Source\\PSoC4/BLE_Stack.h"
+ 233              		.file 4 ".\\BleProcessing.h"
+ 234              		.section	.debug_info,"",%progbits
+ 235              	.Ldebug_info0:
+ 236 0000 85010000 		.4byte	0x185
+ 237 0004 0400     		.2byte	0x4
+ 238 0006 00000000 		.4byte	.Ldebug_abbrev0
+ 239 000a 04       		.byte	0x4
+ 240 000b 01       		.uleb128 0x1
+ 241 000c 80000000 		.4byte	.LASF34
+ 242 0010 01       		.byte	0x1
+ 243 0011 21010000 		.4byte	.LASF35
+ 244 0015 C6020000 		.4byte	.LASF36
+ 245 0019 00000000 		.4byte	.Ldebug_ranges0+0
+ 246 001d 00000000 		.4byte	0
+ 247 0021 00000000 		.4byte	.Ldebug_line0
+ 248 0025 02       		.uleb128 0x2
+ 249 0026 01       		.byte	0x1
+ 250 0027 06       		.byte	0x6
+ 251 0028 BA020000 		.4byte	.LASF0
+ARM GAS  C:\Users\KEVINH~1\AppData\Local\Temp\ccXCxcTH.s 			page 11
+
+
+ 252 002c 02       		.uleb128 0x2
+ 253 002d 01       		.byte	0x1
+ 254 002e 08       		.byte	0x8
+ 255 002f 13010000 		.4byte	.LASF1
+ 256 0033 02       		.uleb128 0x2
+ 257 0034 02       		.byte	0x2
+ 258 0035 05       		.byte	0x5
+ 259 0036 86020000 		.4byte	.LASF2
+ 260 003a 02       		.uleb128 0x2
+ 261 003b 02       		.byte	0x2
+ 262 003c 07       		.byte	0x7
+ 263 003d 41030000 		.4byte	.LASF3
+ 264 0041 02       		.uleb128 0x2
+ 265 0042 04       		.byte	0x4
+ 266 0043 05       		.byte	0x5
+ 267 0044 A0020000 		.4byte	.LASF4
+ 268 0048 02       		.uleb128 0x2
+ 269 0049 04       		.byte	0x4
+ 270 004a 07       		.byte	0x7
+ 271 004b 2A010000 		.4byte	.LASF5
+ 272 004f 02       		.uleb128 0x2
+ 273 0050 08       		.byte	0x8
+ 274 0051 05       		.byte	0x5
+ 275 0052 2F020000 		.4byte	.LASF6
+ 276 0056 02       		.uleb128 0x2
+ 277 0057 08       		.byte	0x8
+ 278 0058 07       		.byte	0x7
+ 279 0059 FC000000 		.4byte	.LASF7
+ 280 005d 03       		.uleb128 0x3
+ 281 005e 04       		.byte	0x4
+ 282 005f 05       		.byte	0x5
+ 283 0060 696E7400 		.ascii	"int\000"
+ 284 0064 02       		.uleb128 0x2
+ 285 0065 04       		.byte	0x4
+ 286 0066 07       		.byte	0x7
+ 287 0067 B3010000 		.4byte	.LASF8
+ 288 006b 04       		.uleb128 0x4
+ 289 006c 3C010000 		.4byte	.LASF9
+ 290 0070 02       		.byte	0x2
+ 291 0071 B3       		.byte	0xb3
+ 292 0072 2C000000 		.4byte	0x2c
+ 293 0076 04       		.uleb128 0x4
+ 294 0077 90010000 		.4byte	.LASF10
+ 295 007b 02       		.byte	0x2
+ 296 007c B5       		.byte	0xb5
+ 297 007d 48000000 		.4byte	0x48
+ 298 0081 02       		.uleb128 0x2
+ 299 0082 04       		.byte	0x4
+ 300 0083 04       		.byte	0x4
+ 301 0084 7A000000 		.4byte	.LASF11
+ 302 0088 02       		.uleb128 0x2
+ 303 0089 08       		.byte	0x8
+ 304 008a 04       		.byte	0x4
+ 305 008b 84010000 		.4byte	.LASF12
+ 306 008f 02       		.uleb128 0x2
+ 307 0090 01       		.byte	0x1
+ 308 0091 08       		.byte	0x8
+ARM GAS  C:\Users\KEVINH~1\AppData\Local\Temp\ccXCxcTH.s 			page 12
+
+
+ 309 0092 C0010000 		.4byte	.LASF13
+ 310 0096 02       		.uleb128 0x2
+ 311 0097 04       		.byte	0x4
+ 312 0098 07       		.byte	0x7
+ 313 0099 26020000 		.4byte	.LASF14
+ 314 009d 05       		.uleb128 0x5
+ 315 009e 01       		.byte	0x1
+ 316 009f 03       		.byte	0x3
+ 317 00a0 3302     		.2byte	0x233
+ 318 00a2 C6000000 		.4byte	0xc6
+ 319 00a6 06       		.uleb128 0x6
+ 320 00a7 3D000000 		.4byte	.LASF15
+ 321 00ab 01       		.sleb128 1
+ 322 00ac 06       		.uleb128 0x6
+ 323 00ad 19000000 		.4byte	.LASF16
+ 324 00b1 02       		.sleb128 2
+ 325 00b2 06       		.uleb128 0x6
+ 326 00b3 C5010000 		.4byte	.LASF17
+ 327 00b7 03       		.sleb128 3
+ 328 00b8 06       		.uleb128 0x6
+ 329 00b9 6E010000 		.4byte	.LASF18
+ 330 00bd 04       		.sleb128 4
+ 331 00be 06       		.uleb128 0x6
+ 332 00bf 42010000 		.4byte	.LASF19
+ 333 00c3 FF01     		.sleb128 255
+ 334 00c5 00       		.byte	0
+ 335 00c6 07       		.uleb128 0x7
+ 336 00c7 90020000 		.4byte	.LASF20
+ 337 00cb 03       		.byte	0x3
+ 338 00cc 4F02     		.2byte	0x24f
+ 339 00ce 9D000000 		.4byte	0x9d
+ 340 00d2 05       		.uleb128 0x5
+ 341 00d3 01       		.byte	0x1
+ 342 00d4 03       		.byte	0x3
+ 343 00d5 5302     		.2byte	0x253
+ 344 00d7 0D010000 		.4byte	0x10d
+ 345 00db 06       		.uleb128 0x6
+ 346 00dc 00000000 		.4byte	.LASF21
+ 347 00e0 01       		.sleb128 1
+ 348 00e1 06       		.uleb128 0x6
+ 349 00e2 DB010000 		.4byte	.LASF22
+ 350 00e6 02       		.sleb128 2
+ 351 00e7 06       		.uleb128 0x6
+ 352 00e8 56010000 		.4byte	.LASF23
+ 353 00ec 03       		.sleb128 3
+ 354 00ed 06       		.uleb128 0x6
+ 355 00ee 50000000 		.4byte	.LASF24
+ 356 00f2 04       		.sleb128 4
+ 357 00f3 06       		.uleb128 0x6
+ 358 00f4 69020000 		.4byte	.LASF25
+ 359 00f8 05       		.sleb128 5
+ 360 00f9 06       		.uleb128 0x6
+ 361 00fa 3D020000 		.4byte	.LASF26
+ 362 00fe 06       		.sleb128 6
+ 363 00ff 06       		.uleb128 0x6
+ 364 0100 97010000 		.4byte	.LASF27
+ 365 0104 07       		.sleb128 7
+ARM GAS  C:\Users\KEVINH~1\AppData\Local\Temp\ccXCxcTH.s 			page 13
+
+
+ 366 0105 06       		.uleb128 0x6
+ 367 0106 0C020000 		.4byte	.LASF28
+ 368 010a FF01     		.sleb128 255
+ 369 010c 00       		.byte	0
+ 370 010d 08       		.uleb128 0x8
+ 371 010e 69000000 		.4byte	.LASF37
+ 372 0112 01       		.byte	0x1
+ 373 0113 63       		.byte	0x63
+ 374 0114 00000000 		.4byte	.LFB35
+ 375 0118 3C000000 		.4byte	.LFE35-.LFB35
+ 376 011c 01       		.uleb128 0x1
+ 377 011d 9C       		.byte	0x9c
+ 378 011e 09       		.uleb128 0x9
+ 379 011f 8B010000 		.4byte	.LASF38
+ 380 0123 01       		.byte	0x1
+ 381 0124 9C       		.byte	0x9c
+ 382 0125 5D000000 		.4byte	0x5d
+ 383 0129 00000000 		.4byte	.LFB36
+ 384 012d F0000000 		.4byte	.LFE36-.LFB36
+ 385 0131 01       		.uleb128 0x1
+ 386 0132 9C       		.byte	0x9c
+ 387 0133 76010000 		.4byte	0x176
+ 388 0137 0A       		.uleb128 0xa
+ 389 0138 2B000000 		.4byte	.LASF29
+ 390 013c 01       		.byte	0x1
+ 391 013d 9E       		.byte	0x9e
+ 392 013e 76000000 		.4byte	0x76
+ 393 0142 05       		.uleb128 0x5
+ 394 0143 03       		.byte	0x3
+ 395 0144 04000000 		.4byte	previousTimestamp.6597
+ 396 0148 0A       		.uleb128 0xa
+ 397 0149 A9020000 		.4byte	.LASF30
+ 398 014d 01       		.byte	0x1
+ 399 014e 9F       		.byte	0x9f
+ 400 014f 76000000 		.4byte	0x76
+ 401 0153 05       		.uleb128 0x5
+ 402 0154 03       		.byte	0x3
+ 403 0155 00000000 		.4byte	currentTimestamp.6598
+ 404 0159 0A       		.uleb128 0xa
+ 405 015a 5A030000 		.4byte	.LASF31
+ 406 015e 01       		.byte	0x1
+ 407 015f A0       		.byte	0xa0
+ 408 0160 C6000000 		.4byte	0xc6
+ 409 0164 02       		.uleb128 0x2
+ 410 0165 91       		.byte	0x91
+ 411 0166 6F       		.sleb128 -17
+ 412 0167 0A       		.uleb128 0xa
+ 413 0168 59020000 		.4byte	.LASF32
+ 414 016c 01       		.byte	0x1
+ 415 016d A1       		.byte	0xa1
+ 416 016e 6B000000 		.4byte	0x6b
+ 417 0172 02       		.uleb128 0x2
+ 418 0173 91       		.byte	0x91
+ 419 0174 6E       		.sleb128 -18
+ 420 0175 00       		.byte	0
+ 421 0176 0B       		.uleb128 0xb
+ 422 0177 F9010000 		.4byte	.LASF39
+ARM GAS  C:\Users\KEVINH~1\AppData\Local\Temp\ccXCxcTH.s 			page 14
+
+
+ 423 017b 04       		.byte	0x4
+ 424 017c 44       		.byte	0x44
+ 425 017d 81010000 		.4byte	0x181
+ 426 0181 02       		.uleb128 0x2
+ 427 0182 01       		.byte	0x1
+ 428 0183 02       		.byte	0x2
+ 429 0184 54030000 		.4byte	.LASF33
+ 430 0188 00       		.byte	0
+ 431              		.section	.debug_abbrev,"",%progbits
+ 432              	.Ldebug_abbrev0:
+ 433 0000 01       		.uleb128 0x1
+ 434 0001 11       		.uleb128 0x11
+ 435 0002 01       		.byte	0x1
+ 436 0003 25       		.uleb128 0x25
+ 437 0004 0E       		.uleb128 0xe
+ 438 0005 13       		.uleb128 0x13
+ 439 0006 0B       		.uleb128 0xb
+ 440 0007 03       		.uleb128 0x3
+ 441 0008 0E       		.uleb128 0xe
+ 442 0009 1B       		.uleb128 0x1b
+ 443 000a 0E       		.uleb128 0xe
+ 444 000b 55       		.uleb128 0x55
+ 445 000c 17       		.uleb128 0x17
+ 446 000d 11       		.uleb128 0x11
+ 447 000e 01       		.uleb128 0x1
+ 448 000f 10       		.uleb128 0x10
+ 449 0010 17       		.uleb128 0x17
+ 450 0011 00       		.byte	0
+ 451 0012 00       		.byte	0
+ 452 0013 02       		.uleb128 0x2
+ 453 0014 24       		.uleb128 0x24
+ 454 0015 00       		.byte	0
+ 455 0016 0B       		.uleb128 0xb
+ 456 0017 0B       		.uleb128 0xb
+ 457 0018 3E       		.uleb128 0x3e
+ 458 0019 0B       		.uleb128 0xb
+ 459 001a 03       		.uleb128 0x3
+ 460 001b 0E       		.uleb128 0xe
+ 461 001c 00       		.byte	0
+ 462 001d 00       		.byte	0
+ 463 001e 03       		.uleb128 0x3
+ 464 001f 24       		.uleb128 0x24
+ 465 0020 00       		.byte	0
+ 466 0021 0B       		.uleb128 0xb
+ 467 0022 0B       		.uleb128 0xb
+ 468 0023 3E       		.uleb128 0x3e
+ 469 0024 0B       		.uleb128 0xb
+ 470 0025 03       		.uleb128 0x3
+ 471 0026 08       		.uleb128 0x8
+ 472 0027 00       		.byte	0
+ 473 0028 00       		.byte	0
+ 474 0029 04       		.uleb128 0x4
+ 475 002a 16       		.uleb128 0x16
+ 476 002b 00       		.byte	0
+ 477 002c 03       		.uleb128 0x3
+ 478 002d 0E       		.uleb128 0xe
+ 479 002e 3A       		.uleb128 0x3a
+ARM GAS  C:\Users\KEVINH~1\AppData\Local\Temp\ccXCxcTH.s 			page 15
+
+
+ 480 002f 0B       		.uleb128 0xb
+ 481 0030 3B       		.uleb128 0x3b
+ 482 0031 0B       		.uleb128 0xb
+ 483 0032 49       		.uleb128 0x49
+ 484 0033 13       		.uleb128 0x13
+ 485 0034 00       		.byte	0
+ 486 0035 00       		.byte	0
+ 487 0036 05       		.uleb128 0x5
+ 488 0037 04       		.uleb128 0x4
+ 489 0038 01       		.byte	0x1
+ 490 0039 0B       		.uleb128 0xb
+ 491 003a 0B       		.uleb128 0xb
+ 492 003b 3A       		.uleb128 0x3a
+ 493 003c 0B       		.uleb128 0xb
+ 494 003d 3B       		.uleb128 0x3b
+ 495 003e 05       		.uleb128 0x5
+ 496 003f 01       		.uleb128 0x1
+ 497 0040 13       		.uleb128 0x13
+ 498 0041 00       		.byte	0
+ 499 0042 00       		.byte	0
+ 500 0043 06       		.uleb128 0x6
+ 501 0044 28       		.uleb128 0x28
+ 502 0045 00       		.byte	0
+ 503 0046 03       		.uleb128 0x3
+ 504 0047 0E       		.uleb128 0xe
+ 505 0048 1C       		.uleb128 0x1c
+ 506 0049 0D       		.uleb128 0xd
+ 507 004a 00       		.byte	0
+ 508 004b 00       		.byte	0
+ 509 004c 07       		.uleb128 0x7
+ 510 004d 16       		.uleb128 0x16
+ 511 004e 00       		.byte	0
+ 512 004f 03       		.uleb128 0x3
+ 513 0050 0E       		.uleb128 0xe
+ 514 0051 3A       		.uleb128 0x3a
+ 515 0052 0B       		.uleb128 0xb
+ 516 0053 3B       		.uleb128 0x3b
+ 517 0054 05       		.uleb128 0x5
+ 518 0055 49       		.uleb128 0x49
+ 519 0056 13       		.uleb128 0x13
+ 520 0057 00       		.byte	0
+ 521 0058 00       		.byte	0
+ 522 0059 08       		.uleb128 0x8
+ 523 005a 2E       		.uleb128 0x2e
+ 524 005b 00       		.byte	0
+ 525 005c 03       		.uleb128 0x3
+ 526 005d 0E       		.uleb128 0xe
+ 527 005e 3A       		.uleb128 0x3a
+ 528 005f 0B       		.uleb128 0xb
+ 529 0060 3B       		.uleb128 0x3b
+ 530 0061 0B       		.uleb128 0xb
+ 531 0062 27       		.uleb128 0x27
+ 532 0063 19       		.uleb128 0x19
+ 533 0064 11       		.uleb128 0x11
+ 534 0065 01       		.uleb128 0x1
+ 535 0066 12       		.uleb128 0x12
+ 536 0067 06       		.uleb128 0x6
+ARM GAS  C:\Users\KEVINH~1\AppData\Local\Temp\ccXCxcTH.s 			page 16
+
+
+ 537 0068 40       		.uleb128 0x40
+ 538 0069 18       		.uleb128 0x18
+ 539 006a 9642     		.uleb128 0x2116
+ 540 006c 19       		.uleb128 0x19
+ 541 006d 00       		.byte	0
+ 542 006e 00       		.byte	0
+ 543 006f 09       		.uleb128 0x9
+ 544 0070 2E       		.uleb128 0x2e
+ 545 0071 01       		.byte	0x1
+ 546 0072 3F       		.uleb128 0x3f
+ 547 0073 19       		.uleb128 0x19
+ 548 0074 03       		.uleb128 0x3
+ 549 0075 0E       		.uleb128 0xe
+ 550 0076 3A       		.uleb128 0x3a
+ 551 0077 0B       		.uleb128 0xb
+ 552 0078 3B       		.uleb128 0x3b
+ 553 0079 0B       		.uleb128 0xb
+ 554 007a 49       		.uleb128 0x49
+ 555 007b 13       		.uleb128 0x13
+ 556 007c 11       		.uleb128 0x11
+ 557 007d 01       		.uleb128 0x1
+ 558 007e 12       		.uleb128 0x12
+ 559 007f 06       		.uleb128 0x6
+ 560 0080 40       		.uleb128 0x40
+ 561 0081 18       		.uleb128 0x18
+ 562 0082 9642     		.uleb128 0x2116
+ 563 0084 19       		.uleb128 0x19
+ 564 0085 01       		.uleb128 0x1
+ 565 0086 13       		.uleb128 0x13
+ 566 0087 00       		.byte	0
+ 567 0088 00       		.byte	0
+ 568 0089 0A       		.uleb128 0xa
+ 569 008a 34       		.uleb128 0x34
+ 570 008b 00       		.byte	0
+ 571 008c 03       		.uleb128 0x3
+ 572 008d 0E       		.uleb128 0xe
+ 573 008e 3A       		.uleb128 0x3a
+ 574 008f 0B       		.uleb128 0xb
+ 575 0090 3B       		.uleb128 0x3b
+ 576 0091 0B       		.uleb128 0xb
+ 577 0092 49       		.uleb128 0x49
+ 578 0093 13       		.uleb128 0x13
+ 579 0094 02       		.uleb128 0x2
+ 580 0095 18       		.uleb128 0x18
+ 581 0096 00       		.byte	0
+ 582 0097 00       		.byte	0
+ 583 0098 0B       		.uleb128 0xb
+ 584 0099 34       		.uleb128 0x34
+ 585 009a 00       		.byte	0
+ 586 009b 03       		.uleb128 0x3
+ 587 009c 0E       		.uleb128 0xe
+ 588 009d 3A       		.uleb128 0x3a
+ 589 009e 0B       		.uleb128 0xb
+ 590 009f 3B       		.uleb128 0x3b
+ 591 00a0 0B       		.uleb128 0xb
+ 592 00a1 49       		.uleb128 0x49
+ 593 00a2 13       		.uleb128 0x13
+ARM GAS  C:\Users\KEVINH~1\AppData\Local\Temp\ccXCxcTH.s 			page 17
+
+
+ 594 00a3 3F       		.uleb128 0x3f
+ 595 00a4 19       		.uleb128 0x19
+ 596 00a5 3C       		.uleb128 0x3c
+ 597 00a6 19       		.uleb128 0x19
+ 598 00a7 00       		.byte	0
+ 599 00a8 00       		.byte	0
+ 600 00a9 00       		.byte	0
+ 601              		.section	.debug_aranges,"",%progbits
+ 602 0000 24000000 		.4byte	0x24
+ 603 0004 0200     		.2byte	0x2
+ 604 0006 00000000 		.4byte	.Ldebug_info0
+ 605 000a 04       		.byte	0x4
+ 606 000b 00       		.byte	0
+ 607 000c 0000     		.2byte	0
+ 608 000e 0000     		.2byte	0
+ 609 0010 00000000 		.4byte	.LFB35
+ 610 0014 3C000000 		.4byte	.LFE35-.LFB35
+ 611 0018 00000000 		.4byte	.LFB36
+ 612 001c F0000000 		.4byte	.LFE36-.LFB36
+ 613 0020 00000000 		.4byte	0
+ 614 0024 00000000 		.4byte	0
+ 615              		.section	.debug_ranges,"",%progbits
+ 616              	.Ldebug_ranges0:
+ 617 0000 00000000 		.4byte	.LFB35
+ 618 0004 3C000000 		.4byte	.LFE35
+ 619 0008 00000000 		.4byte	.LFB36
+ 620 000c F0000000 		.4byte	.LFE36
+ 621 0010 00000000 		.4byte	0
+ 622 0014 00000000 		.4byte	0
+ 623              		.section	.debug_line,"",%progbits
+ 624              	.Ldebug_line0:
+ 625 0000 D1000000 		.section	.debug_str,"MS",%progbits,1
+ 625      02006700 
+ 625      00000201 
+ 625      FB0E0D00 
+ 625      01010101 
+ 626              	.LASF21:
+ 627 0000 4359424C 		.ascii	"CYBLE_BLESS_STATE_ACTIVE\000"
+ 627      455F424C 
+ 627      4553535F 
+ 627      53544154 
+ 627      455F4143 
+ 628              	.LASF16:
+ 629 0019 4359424C 		.ascii	"CYBLE_BLESS_SLEEP\000"
+ 629      455F424C 
+ 629      4553535F 
+ 629      534C4545 
+ 629      5000
+ 630              	.LASF29:
+ 631 002b 70726576 		.ascii	"previousTimestamp\000"
+ 631      696F7573 
+ 631      54696D65 
+ 631      7374616D 
+ 631      7000
+ 632              	.LASF15:
+ 633 003d 4359424C 		.ascii	"CYBLE_BLESS_ACTIVE\000"
+ 633      455F424C 
+ARM GAS  C:\Users\KEVINH~1\AppData\Local\Temp\ccXCxcTH.s 			page 18
+
+
+ 633      4553535F 
+ 633      41435449 
+ 633      564500
+ 634              	.LASF24:
+ 635 0050 4359424C 		.ascii	"CYBLE_BLESS_STATE_ECO_ON\000"
+ 635      455F424C 
+ 635      4553535F 
+ 635      53544154 
+ 635      455F4543 
+ 636              	.LASF37:
+ 637 0069 496E6974 		.ascii	"InitializeSystem\000"
+ 637      69616C69 
+ 637      7A655379 
+ 637      7374656D 
+ 637      00
+ 638              	.LASF11:
+ 639 007a 666C6F61 		.ascii	"float\000"
+ 639      7400
+ 640              	.LASF34:
+ 641 0080 474E5520 		.ascii	"GNU C 4.8.4 20140526 (release) [ARM/embedded-4_8-br"
+ 641      4320342E 
+ 641      382E3420 
+ 641      32303134 
+ 641      30353236 
+ 642 00b3 616E6368 		.ascii	"anch revision 211358] -mcpu=cortex-m0 -mthumb -g -O"
+ 642      20726576 
+ 642      6973696F 
+ 642      6E203231 
+ 642      31333538 
+ 643 00e6 30202D66 		.ascii	"0 -ffunction-sections\000"
+ 643      66756E63 
+ 643      74696F6E 
+ 643      2D736563 
+ 643      74696F6E 
+ 644              	.LASF7:
+ 645 00fc 6C6F6E67 		.ascii	"long long unsigned int\000"
+ 645      206C6F6E 
+ 645      6720756E 
+ 645      7369676E 
+ 645      65642069 
+ 646              	.LASF1:
+ 647 0113 756E7369 		.ascii	"unsigned char\000"
+ 647      676E6564 
+ 647      20636861 
+ 647      7200
+ 648              	.LASF35:
+ 649 0121 2E5C6D61 		.ascii	".\\main.c\000"
+ 649      696E2E63 
+ 649      00
+ 650              	.LASF5:
+ 651 012a 6C6F6E67 		.ascii	"long unsigned int\000"
+ 651      20756E73 
+ 651      69676E65 
+ 651      6420696E 
+ 651      7400
+ 652              	.LASF9:
+ 653 013c 75696E74 		.ascii	"uint8\000"
+ARM GAS  C:\Users\KEVINH~1\AppData\Local\Temp\ccXCxcTH.s 			page 19
+
+
+ 653      3800
+ 654              	.LASF19:
+ 655 0142 4359424C 		.ascii	"CYBLE_BLESS_INVALID\000"
+ 655      455F424C 
+ 655      4553535F 
+ 655      494E5641 
+ 655      4C494400 
+ 656              	.LASF23:
+ 657 0156 4359424C 		.ascii	"CYBLE_BLESS_STATE_SLEEP\000"
+ 657      455F424C 
+ 657      4553535F 
+ 657      53544154 
+ 657      455F534C 
+ 658              	.LASF18:
+ 659 016e 4359424C 		.ascii	"CYBLE_BLESS_HIBERNATE\000"
+ 659      455F424C 
+ 659      4553535F 
+ 659      48494245 
+ 659      524E4154 
+ 660              	.LASF12:
+ 661 0184 646F7562 		.ascii	"double\000"
+ 661      6C6500
+ 662              	.LASF38:
+ 663 018b 6D61696E 		.ascii	"main\000"
+ 663      00
+ 664              	.LASF10:
+ 665 0190 75696E74 		.ascii	"uint32\000"
+ 665      333200
+ 666              	.LASF27:
+ 667 0197 4359424C 		.ascii	"CYBLE_BLESS_STATE_HIBERNATE\000"
+ 667      455F424C 
+ 667      4553535F 
+ 667      53544154 
+ 667      455F4849 
+ 668              	.LASF8:
+ 669 01b3 756E7369 		.ascii	"unsigned int\000"
+ 669      676E6564 
+ 669      20696E74 
+ 669      00
+ 670              	.LASF13:
+ 671 01c0 63686172 		.ascii	"char\000"
+ 671      00
+ 672              	.LASF17:
+ 673 01c5 4359424C 		.ascii	"CYBLE_BLESS_DEEPSLEEP\000"
+ 673      455F424C 
+ 673      4553535F 
+ 673      44454550 
+ 673      534C4545 
+ 674              	.LASF22:
+ 675 01db 4359424C 		.ascii	"CYBLE_BLESS_STATE_EVENT_CLOSE\000"
+ 675      455F424C 
+ 675      4553535F 
+ 675      53544154 
+ 675      455F4556 
+ 676              	.LASF39:
+ 677 01f9 656E7465 		.ascii	"enterHibernateFlag\000"
+ 677      72486962 
+ARM GAS  C:\Users\KEVINH~1\AppData\Local\Temp\ccXCxcTH.s 			page 20
+
+
+ 677      65726E61 
+ 677      7465466C 
+ 677      616700
+ 678              	.LASF28:
+ 679 020c 4359424C 		.ascii	"CYBLE_BLESS_STATE_INVALID\000"
+ 679      455F424C 
+ 679      4553535F 
+ 679      53544154 
+ 679      455F494E 
+ 680              	.LASF14:
+ 681 0226 73697A65 		.ascii	"sizetype\000"
+ 681      74797065 
+ 681      00
+ 682              	.LASF6:
+ 683 022f 6C6F6E67 		.ascii	"long long int\000"
+ 683      206C6F6E 
+ 683      6720696E 
+ 683      7400
+ 684              	.LASF26:
+ 685 023d 4359424C 		.ascii	"CYBLE_BLESS_STATE_DEEPSLEEP\000"
+ 685      455F424C 
+ 685      4553535F 
+ 685      53544154 
+ 685      455F4445 
+ 686              	.LASF32:
+ 687 0259 696E7465 		.ascii	"interruptStatus\000"
+ 687      72727570 
+ 687      74537461 
+ 687      74757300 
+ 688              	.LASF25:
+ 689 0269 4359424C 		.ascii	"CYBLE_BLESS_STATE_ECO_STABLE\000"
+ 689      455F424C 
+ 689      4553535F 
+ 689      53544154 
+ 689      455F4543 
+ 690              	.LASF2:
+ 691 0286 73686F72 		.ascii	"short int\000"
+ 691      7420696E 
+ 691      7400
+ 692              	.LASF20:
+ 693 0290 4359424C 		.ascii	"CYBLE_LP_MODE_T\000"
+ 693      455F4C50 
+ 693      5F4D4F44 
+ 693      455F5400 
+ 694              	.LASF4:
+ 695 02a0 6C6F6E67 		.ascii	"long int\000"
+ 695      20696E74 
+ 695      00
+ 696              	.LASF30:
+ 697 02a9 63757272 		.ascii	"currentTimestamp\000"
+ 697      656E7454 
+ 697      696D6573 
+ 697      74616D70 
+ 697      00
+ 698              	.LASF0:
+ 699 02ba 7369676E 		.ascii	"signed char\000"
+ 699      65642063 
+ARM GAS  C:\Users\KEVINH~1\AppData\Local\Temp\ccXCxcTH.s 			page 21
+
+
+ 699      68617200 
+ 700              	.LASF36:
+ 701 02c6 433A5C55 		.ascii	"C:\\Users\\kevinhung\\Desktop\\ble\\Cypress BLE Wor"
+ 701      73657273 
+ 701      5C6B6576 
+ 701      696E6875 
+ 701      6E675C44 
+ 702 02f4 6B73686F 		.ascii	"kshop\\Workshop Exrecises and Manuals\\Template Lab"
+ 702      705C576F 
+ 702      726B7368 
+ 702      6F702045 
+ 702      78726563 
+ 703 0325 735C424C 		.ascii	"s\\BLE Lab 2\\BLE Lab 2.cydsn\000"
+ 703      45204C61 
+ 703      6220325C 
+ 703      424C4520 
+ 703      4C616220 
+ 704              	.LASF3:
+ 705 0341 73686F72 		.ascii	"short unsigned int\000"
+ 705      7420756E 
+ 705      7369676E 
+ 705      65642069 
+ 705      6E7400
+ 706              	.LASF33:
+ 707 0354 5F426F6F 		.ascii	"_Bool\000"
+ 707      6C00
+ 708              	.LASF31:
+ 709 035a 626C654D 		.ascii	"bleMode\000"
+ 709      6F646500 
+ 710              		.ident	"GCC: (GNU Tools for ARM Embedded Processors) 4.8.4 20140526 (release) [ARM/embedded-4_8-br
