@@ -1,0 +1,1280 @@
+ARM GAS  C:\Users\KEVINH~1\AppData\Local\Temp\ccx53N8u.s 			page 1
+
+
+   1              		.cpu cortex-m0
+   2              		.fpu softvfp
+   3              		.eabi_attribute 20, 1
+   4              		.eabi_attribute 21, 1
+   5              		.eabi_attribute 23, 3
+   6              		.eabi_attribute 24, 1
+   7              		.eabi_attribute 25, 1
+   8              		.eabi_attribute 26, 1
+   9              		.eabi_attribute 30, 1
+  10              		.eabi_attribute 34, 0
+  11              		.eabi_attribute 18, 4
+  12              		.code	16
+  13              		.file	"BLE_custom.c"
+  14              		.text
+  15              	.Ltext0:
+  16              		.cfi_sections	.debug_frame
+  17              		.section	.text.CyBle_CustomInit,"ax",%progbits
+  18              		.align	2
+  19              		.global	CyBle_CustomInit
+  20              		.code	16
+  21              		.thumb_func
+  22              		.type	CyBle_CustomInit, %function
+  23              	CyBle_CustomInit:
+  24              	.LFB2:
+  25              		.file 1 ".\\Generated_Source\\PSoC4\\BLE_custom.c"
+   1:.\Generated_Source\PSoC4/BLE_custom.c **** /*******************************************************************************
+   2:.\Generated_Source\PSoC4/BLE_custom.c **** File Name: CYBLE_custom.c
+   3:.\Generated_Source\PSoC4/BLE_custom.c **** Version 2.0
+   4:.\Generated_Source\PSoC4/BLE_custom.c **** 
+   5:.\Generated_Source\PSoC4/BLE_custom.c **** Description:
+   6:.\Generated_Source\PSoC4/BLE_custom.c ****  Contains the source code for the Custom Service.
+   7:.\Generated_Source\PSoC4/BLE_custom.c **** 
+   8:.\Generated_Source\PSoC4/BLE_custom.c **** ********************************************************************************
+   9:.\Generated_Source\PSoC4/BLE_custom.c **** Copyright 2014-2015, Cypress Semiconductor Corporation.  All rights reserved.
+  10:.\Generated_Source\PSoC4/BLE_custom.c **** You may use this file only in accordance with the license, terms, conditions,
+  11:.\Generated_Source\PSoC4/BLE_custom.c **** disclaimers, and limitations in the end user license agreement accompanying
+  12:.\Generated_Source\PSoC4/BLE_custom.c **** the software package with which this file was provided.
+  13:.\Generated_Source\PSoC4/BLE_custom.c **** *******************************************************************************/
+  14:.\Generated_Source\PSoC4/BLE_custom.c **** 
+  15:.\Generated_Source\PSoC4/BLE_custom.c **** 
+  16:.\Generated_Source\PSoC4/BLE_custom.c **** #include "BLE_eventHandler.h"
+  17:.\Generated_Source\PSoC4/BLE_custom.c **** 
+  18:.\Generated_Source\PSoC4/BLE_custom.c **** #ifdef CYBLE_CUSTOM_SERVER
+  19:.\Generated_Source\PSoC4/BLE_custom.c **** 
+  20:.\Generated_Source\PSoC4/BLE_custom.c **** /* If any custom service with custom characterisctis is defined in the
+  21:.\Generated_Source\PSoC4/BLE_custom.c **** * customizer's GUI their handles will be present in this array.
+  22:.\Generated_Source\PSoC4/BLE_custom.c **** */
+  23:.\Generated_Source\PSoC4/BLE_custom.c **** /* This array contains attribute handles for the defined Custom Services and their characteristics 
+  24:.\Generated_Source\PSoC4/BLE_custom.c ****    The array index definitions are located in the CYBLE_custom.h file. */
+  25:.\Generated_Source\PSoC4/BLE_custom.c **** const CYBLE_CUSTOMS_T cyBle_customs[0x02u] = {
+  26:.\Generated_Source\PSoC4/BLE_custom.c **** 
+  27:.\Generated_Source\PSoC4/BLE_custom.c ****     /* CapSence Service service */
+  28:.\Generated_Source\PSoC4/BLE_custom.c ****     {
+  29:.\Generated_Source\PSoC4/BLE_custom.c ****         0x000Cu, /* Handle of the CapSence Service service */ 
+  30:.\Generated_Source\PSoC4/BLE_custom.c ****         {
+  31:.\Generated_Source\PSoC4/BLE_custom.c **** 
+  32:.\Generated_Source\PSoC4/BLE_custom.c ****             /* CapSence Characteristic characteristic */
+ARM GAS  C:\Users\KEVINH~1\AppData\Local\Temp\ccx53N8u.s 			page 2
+
+
+  33:.\Generated_Source\PSoC4/BLE_custom.c ****             {
+  34:.\Generated_Source\PSoC4/BLE_custom.c ****                 0x000Eu, /* Handle of the CapSence Characteristic characteristic */ 
+  35:.\Generated_Source\PSoC4/BLE_custom.c ****                 
+  36:.\Generated_Source\PSoC4/BLE_custom.c ****                 /* Array of Descriptors handles */
+  37:.\Generated_Source\PSoC4/BLE_custom.c ****                 {
+  38:.\Generated_Source\PSoC4/BLE_custom.c ****                     0x000Fu, /* Handle of the Client Characteristic Configuration descriptor */ 
+  39:.\Generated_Source\PSoC4/BLE_custom.c ****                     0x0010u, /* Handle of the Characteristic User Description descriptor */ 
+  40:.\Generated_Source\PSoC4/BLE_custom.c ****                     0x0011u, /* Handle of the Custom Descriptor descriptor */ 
+  41:.\Generated_Source\PSoC4/BLE_custom.c ****                 }, 
+  42:.\Generated_Source\PSoC4/BLE_custom.c ****             },
+  43:.\Generated_Source\PSoC4/BLE_custom.c ****         }, 
+  44:.\Generated_Source\PSoC4/BLE_custom.c ****     },
+  45:.\Generated_Source\PSoC4/BLE_custom.c **** 
+  46:.\Generated_Source\PSoC4/BLE_custom.c ****     /* RGB LED Characteristic service */
+  47:.\Generated_Source\PSoC4/BLE_custom.c ****     {
+  48:.\Generated_Source\PSoC4/BLE_custom.c ****         0x0012u, /* Handle of the RGB LED Characteristic service */ 
+  49:.\Generated_Source\PSoC4/BLE_custom.c ****         {
+  50:.\Generated_Source\PSoC4/BLE_custom.c **** 
+  51:.\Generated_Source\PSoC4/BLE_custom.c ****             /* Custom Characteristic characteristic */
+  52:.\Generated_Source\PSoC4/BLE_custom.c ****             {
+  53:.\Generated_Source\PSoC4/BLE_custom.c ****                 0x0014u, /* Handle of the Custom Characteristic characteristic */ 
+  54:.\Generated_Source\PSoC4/BLE_custom.c ****                 
+  55:.\Generated_Source\PSoC4/BLE_custom.c ****                 /* Array of Descriptors handles */
+  56:.\Generated_Source\PSoC4/BLE_custom.c ****                 {
+  57:.\Generated_Source\PSoC4/BLE_custom.c ****                     0x0015u, /* Handle of the Characteristic User Description descriptor */ 
+  58:.\Generated_Source\PSoC4/BLE_custom.c ****                     CYBLE_GATT_INVALID_ATTR_HANDLE_VALUE, 
+  59:.\Generated_Source\PSoC4/BLE_custom.c ****                     CYBLE_GATT_INVALID_ATTR_HANDLE_VALUE, 
+  60:.\Generated_Source\PSoC4/BLE_custom.c ****                 }, 
+  61:.\Generated_Source\PSoC4/BLE_custom.c ****             },
+  62:.\Generated_Source\PSoC4/BLE_custom.c ****         }, 
+  63:.\Generated_Source\PSoC4/BLE_custom.c ****     },
+  64:.\Generated_Source\PSoC4/BLE_custom.c **** };
+  65:.\Generated_Source\PSoC4/BLE_custom.c **** 
+  66:.\Generated_Source\PSoC4/BLE_custom.c **** 
+  67:.\Generated_Source\PSoC4/BLE_custom.c **** #endif /* (CYBLE_CUSTOM_SERVER) */
+  68:.\Generated_Source\PSoC4/BLE_custom.c **** 
+  69:.\Generated_Source\PSoC4/BLE_custom.c **** #ifdef CYBLE_CUSTOM_CLIENT
+  70:.\Generated_Source\PSoC4/BLE_custom.c ****     
+  71:.\Generated_Source\PSoC4/BLE_custom.c **** 
+  72:.\Generated_Source\PSoC4/BLE_custom.c **** static uint16 cyBle_customDisServIndex;
+  73:.\Generated_Source\PSoC4/BLE_custom.c **** static uint16 cyBle_customDisCharIndex;
+  74:.\Generated_Source\PSoC4/BLE_custom.c **** 
+  75:.\Generated_Source\PSoC4/BLE_custom.c **** #endif /* (CYBLE_CUSTOM_CLIENT) */
+  76:.\Generated_Source\PSoC4/BLE_custom.c **** 
+  77:.\Generated_Source\PSoC4/BLE_custom.c **** 
+  78:.\Generated_Source\PSoC4/BLE_custom.c **** /****************************************************************************** 
+  79:.\Generated_Source\PSoC4/BLE_custom.c **** ##Function Name: CyBle_CustomInit
+  80:.\Generated_Source\PSoC4/BLE_custom.c **** *******************************************************************************
+  81:.\Generated_Source\PSoC4/BLE_custom.c **** 
+  82:.\Generated_Source\PSoC4/BLE_custom.c **** Summary:
+  83:.\Generated_Source\PSoC4/BLE_custom.c ****  This function initializes Custom Service.
+  84:.\Generated_Source\PSoC4/BLE_custom.c **** 
+  85:.\Generated_Source\PSoC4/BLE_custom.c **** Parameters:
+  86:.\Generated_Source\PSoC4/BLE_custom.c ****  None
+  87:.\Generated_Source\PSoC4/BLE_custom.c **** 
+  88:.\Generated_Source\PSoC4/BLE_custom.c **** Return:
+  89:.\Generated_Source\PSoC4/BLE_custom.c ****  None
+ARM GAS  C:\Users\KEVINH~1\AppData\Local\Temp\ccx53N8u.s 			page 3
+
+
+  90:.\Generated_Source\PSoC4/BLE_custom.c **** 
+  91:.\Generated_Source\PSoC4/BLE_custom.c **** ******************************************************************************/
+  92:.\Generated_Source\PSoC4/BLE_custom.c **** void CyBle_CustomInit(void)
+  93:.\Generated_Source\PSoC4/BLE_custom.c **** {
+  26              		.loc 1 93 0
+  27              		.cfi_startproc
+  94:.\Generated_Source\PSoC4/BLE_custom.c ****     
+  95:.\Generated_Source\PSoC4/BLE_custom.c **** #ifdef CYBLE_CUSTOM_CLIENT
+  96:.\Generated_Source\PSoC4/BLE_custom.c **** 
+  97:.\Generated_Source\PSoC4/BLE_custom.c ****     uint16 locServIndex;
+  98:.\Generated_Source\PSoC4/BLE_custom.c ****     uint16 locCharIndex;
+  99:.\Generated_Source\PSoC4/BLE_custom.c ****     uint16 locDescIndex;
+ 100:.\Generated_Source\PSoC4/BLE_custom.c ****     
+ 101:.\Generated_Source\PSoC4/BLE_custom.c ****     for(locServIndex = 0u; locServIndex < CYBLE_CUSTOMC_SERVICE_COUNT; locServIndex++)
+ 102:.\Generated_Source\PSoC4/BLE_custom.c ****     {
+ 103:.\Generated_Source\PSoC4/BLE_custom.c ****         for(locCharIndex = 0u; locCharIndex < cyBle_customCServ[locServIndex].charCount; locCharInd
+ 104:.\Generated_Source\PSoC4/BLE_custom.c ****         {
+ 105:.\Generated_Source\PSoC4/BLE_custom.c ****             cyBle_customCServ[locServIndex].customServChar[locCharIndex].
+ 106:.\Generated_Source\PSoC4/BLE_custom.c ****                 customServCharHandle = 0u;
+ 107:.\Generated_Source\PSoC4/BLE_custom.c ****             
+ 108:.\Generated_Source\PSoC4/BLE_custom.c ****             for(locDescIndex = 0u; locDescIndex < 
+ 109:.\Generated_Source\PSoC4/BLE_custom.c ****                 cyBle_customCServ[locServIndex].customServChar[locCharIndex].descCount; 
+ 110:.\Generated_Source\PSoC4/BLE_custom.c ****                     locDescIndex++)
+ 111:.\Generated_Source\PSoC4/BLE_custom.c ****             {
+ 112:.\Generated_Source\PSoC4/BLE_custom.c ****                 cyBle_customCServ[locServIndex].customServChar[locCharIndex].
+ 113:.\Generated_Source\PSoC4/BLE_custom.c ****                     customServCharDesc[locDescIndex].descHandle = 0u;
+ 114:.\Generated_Source\PSoC4/BLE_custom.c ****             }
+ 115:.\Generated_Source\PSoC4/BLE_custom.c ****         }
+ 116:.\Generated_Source\PSoC4/BLE_custom.c ****     }
+ 117:.\Generated_Source\PSoC4/BLE_custom.c **** 
+ 118:.\Generated_Source\PSoC4/BLE_custom.c **** #endif /* (CYBLE_CUSTOM_CLIENT) */
+ 119:.\Generated_Source\PSoC4/BLE_custom.c **** }
+  28              		.loc 1 119 0
+  29              		@ sp needed
+  30 0000 7047     		bx	lr
+  31              		.cfi_endproc
+  32              	.LFE2:
+  33              		.size	CyBle_CustomInit, .-CyBle_CustomInit
+  34              		.global	cyBle_customs
+  35 0002 C046     		.section	.rodata
+  36              		.align	2
+  37              		.type	cyBle_customs, %object
+  38              		.size	cyBle_customs, 20
+  39              	cyBle_customs:
+  40 0000 0C00     		.short	12
+  41 0002 0E00     		.short	14
+  42 0004 0F00     		.short	15
+  43 0006 1000     		.short	16
+  44 0008 1100     		.short	17
+  45 000a 1200     		.short	18
+  46 000c 1400     		.short	20
+  47 000e 1500     		.short	21
+  48 0010 0000     		.short	0
+  49 0012 0000     		.short	0
+  50              		.text
+  51              	.Letext0:
+  52              		.file 2 ".\\Generated_Source\\PSoC4\\cytypes.h"
+ARM GAS  C:\Users\KEVINH~1\AppData\Local\Temp\ccx53N8u.s 			page 4
+
+
+  53              		.file 3 ".\\Generated_Source\\PSoC4\\BLE_StackGatt.h"
+  54              		.file 4 ".\\Generated_Source\\PSoC4\\BLE_custom.h"
+  55              		.file 5 ".\\Generated_Source\\PSoC4\\BLE_Stack.h"
+  56              		.section	.debug_info,"",%progbits
+  57              	.Ldebug_info0:
+  58 0000 CF020000 		.4byte	0x2cf
+  59 0004 0400     		.2byte	0x4
+  60 0006 00000000 		.4byte	.Ldebug_abbrev0
+  61 000a 04       		.byte	0x4
+  62 000b 01       		.uleb128 0x1
+  63 000c 6A000000 		.4byte	.LASF78
+  64 0010 01       		.byte	0x1
+  65 0011 21020000 		.4byte	.LASF79
+  66 0015 85050000 		.4byte	.LASF80
+  67 0019 00000000 		.4byte	.Ldebug_ranges0+0
+  68 001d 00000000 		.4byte	0
+  69 0021 00000000 		.4byte	.Ldebug_line0
+  70 0025 02       		.uleb128 0x2
+  71 0026 01       		.byte	0x1
+  72 0027 06       		.byte	0x6
+  73 0028 69040000 		.4byte	.LASF0
+  74 002c 02       		.uleb128 0x2
+  75 002d 01       		.byte	0x1
+  76 002e 08       		.byte	0x8
+  77 002f F0030000 		.4byte	.LASF1
+  78 0033 02       		.uleb128 0x2
+  79 0034 02       		.byte	0x2
+  80 0035 05       		.byte	0x5
+  81 0036 46000000 		.4byte	.LASF2
+  82 003a 02       		.uleb128 0x2
+  83 003b 02       		.byte	0x2
+  84 003c 07       		.byte	0x7
+  85 003d 13060000 		.4byte	.LASF3
+  86 0041 02       		.uleb128 0x2
+  87 0042 04       		.byte	0x4
+  88 0043 05       		.byte	0x5
+  89 0044 BA020000 		.4byte	.LASF4
+  90 0048 02       		.uleb128 0x2
+  91 0049 04       		.byte	0x4
+  92 004a 07       		.byte	0x7
+  93 004b FA040000 		.4byte	.LASF5
+  94 004f 02       		.uleb128 0x2
+  95 0050 08       		.byte	0x8
+  96 0051 05       		.byte	0x5
+  97 0052 80020000 		.4byte	.LASF6
+  98 0056 02       		.uleb128 0x2
+  99 0057 08       		.byte	0x8
+ 100 0058 07       		.byte	0x7
+ 101 0059 8E020000 		.4byte	.LASF7
+ 102 005d 03       		.uleb128 0x3
+ 103 005e 04       		.byte	0x4
+ 104 005f 05       		.byte	0x5
+ 105 0060 696E7400 		.ascii	"int\000"
+ 106 0064 02       		.uleb128 0x2
+ 107 0065 04       		.byte	0x4
+ 108 0066 07       		.byte	0x7
+ 109 0067 D2040000 		.4byte	.LASF8
+ARM GAS  C:\Users\KEVINH~1\AppData\Local\Temp\ccx53N8u.s 			page 5
+
+
+ 110 006b 04       		.uleb128 0x4
+ 111 006c 71010000 		.4byte	.LASF70
+ 112 0070 02       		.byte	0x2
+ 113 0071 B4       		.byte	0xb4
+ 114 0072 3A000000 		.4byte	0x3a
+ 115 0076 02       		.uleb128 0x2
+ 116 0077 04       		.byte	0x4
+ 117 0078 04       		.byte	0x4
+ 118 0079 47020000 		.4byte	.LASF9
+ 119 007d 02       		.uleb128 0x2
+ 120 007e 08       		.byte	0x8
+ 121 007f 04       		.byte	0x4
+ 122 0080 C3060000 		.4byte	.LASF10
+ 123 0084 02       		.uleb128 0x2
+ 124 0085 01       		.byte	0x1
+ 125 0086 08       		.byte	0x8
+ 126 0087 F2050000 		.4byte	.LASF11
+ 127 008b 02       		.uleb128 0x2
+ 128 008c 04       		.byte	0x4
+ 129 008d 07       		.byte	0x7
+ 130 008e E6000000 		.4byte	.LASF12
+ 131 0092 05       		.uleb128 0x5
+ 132 0093 01       		.byte	0x1
+ 133 0094 05       		.byte	0x5
+ 134 0095 7A       		.byte	0x7a
+ 135 0096 17020000 		.4byte	0x217
+ 136 009a 06       		.uleb128 0x6
+ 137 009b CB010000 		.4byte	.LASF13
+ 138 009f 00       		.sleb128 0
+ 139 00a0 06       		.uleb128 0x6
+ 140 00a1 40010000 		.4byte	.LASF14
+ 141 00a5 01       		.sleb128 1
+ 142 00a6 06       		.uleb128 0x6
+ 143 00a7 2C080000 		.4byte	.LASF15
+ 144 00ab 02       		.sleb128 2
+ 145 00ac 06       		.uleb128 0x6
+ 146 00ad 02070000 		.4byte	.LASF16
+ 147 00b1 03       		.sleb128 3
+ 148 00b2 06       		.uleb128 0x6
+ 149 00b3 1A010000 		.4byte	.LASF17
+ 150 00b7 04       		.sleb128 4
+ 151 00b8 06       		.uleb128 0x6
+ 152 00b9 4C030000 		.4byte	.LASF18
+ 153 00bd 05       		.sleb128 5
+ 154 00be 06       		.uleb128 0x6
+ 155 00bf 60070000 		.4byte	.LASF19
+ 156 00c3 20       		.sleb128 32
+ 157 00c4 06       		.uleb128 0x6
+ 158 00c5 0C050000 		.4byte	.LASF20
+ 159 00c9 21       		.sleb128 33
+ 160 00ca 06       		.uleb128 0x6
+ 161 00cb 00000000 		.4byte	.LASF21
+ 162 00cf 22       		.sleb128 34
+ 163 00d0 06       		.uleb128 0x6
+ 164 00d1 68030000 		.4byte	.LASF22
+ 165 00d5 23       		.sleb128 35
+ 166 00d6 06       		.uleb128 0x6
+ARM GAS  C:\Users\KEVINH~1\AppData\Local\Temp\ccx53N8u.s 			page 6
+
+
+ 167 00d7 B6040000 		.4byte	.LASF23
+ 168 00db 24       		.sleb128 36
+ 169 00dc 06       		.uleb128 0x6
+ 170 00dd 50000000 		.4byte	.LASF24
+ 171 00e1 25       		.sleb128 37
+ 172 00e2 06       		.uleb128 0x6
+ 173 00e3 03030000 		.4byte	.LASF25
+ 174 00e7 26       		.sleb128 38
+ 175 00e8 06       		.uleb128 0x6
+ 176 00e9 E4020000 		.4byte	.LASF26
+ 177 00ed 27       		.sleb128 39
+ 178 00ee 06       		.uleb128 0x6
+ 179 00ef 24000000 		.4byte	.LASF27
+ 180 00f3 28       		.sleb128 40
+ 181 00f4 06       		.uleb128 0x6
+ 182 00f5 44050000 		.4byte	.LASF28
+ 183 00f9 29       		.sleb128 41
+ 184 00fa 06       		.uleb128 0x6
+ 185 00fb C9050000 		.4byte	.LASF29
+ 186 00ff 2A       		.sleb128 42
+ 187 0100 06       		.uleb128 0x6
+ 188 0101 63060000 		.4byte	.LASF30
+ 189 0105 2B       		.sleb128 43
+ 190 0106 06       		.uleb128 0x6
+ 191 0107 61050000 		.4byte	.LASF31
+ 192 010b 2C       		.sleb128 44
+ 193 010c 06       		.uleb128 0x6
+ 194 010d EF000000 		.4byte	.LASF32
+ 195 0111 C000     		.sleb128 64
+ 196 0113 06       		.uleb128 0x6
+ 197 0114 DF040000 		.4byte	.LASF33
+ 198 0118 C100     		.sleb128 65
+ 199 011a 06       		.uleb128 0x6
+ 200 011b F6080000 		.4byte	.LASF34
+ 201 011f C200     		.sleb128 66
+ 202 0121 06       		.uleb128 0x6
+ 203 0122 53010000 		.4byte	.LASF35
+ 204 0126 C300     		.sleb128 67
+ 205 0128 06       		.uleb128 0x6
+ 206 0129 EA070000 		.4byte	.LASF36
+ 207 012d C400     		.sleb128 68
+ 208 012f 06       		.uleb128 0x6
+ 209 0130 84070000 		.4byte	.LASF37
+ 210 0134 C500     		.sleb128 69
+ 211 0136 06       		.uleb128 0x6
+ 212 0137 C9070000 		.4byte	.LASF38
+ 213 013b C600     		.sleb128 70
+ 214 013d 06       		.uleb128 0x6
+ 215 013e 4B040000 		.4byte	.LASF39
+ 216 0142 C700     		.sleb128 71
+ 217 0144 06       		.uleb128 0x6
+ 218 0145 8F040000 		.4byte	.LASF40
+ 219 0149 C800     		.sleb128 72
+ 220 014b 06       		.uleb128 0x6
+ 221 014c 4D020000 		.4byte	.LASF41
+ 222 0150 C900     		.sleb128 73
+ 223 0152 06       		.uleb128 0x6
+ARM GAS  C:\Users\KEVINH~1\AppData\Local\Temp\ccx53N8u.s 			page 7
+
+
+ 224 0153 26060000 		.4byte	.LASF42
+ 225 0157 CA00     		.sleb128 74
+ 226 0159 06       		.uleb128 0x6
+ 227 015a 8B010000 		.4byte	.LASF43
+ 228 015e CB00     		.sleb128 75
+ 229 0160 06       		.uleb128 0x6
+ 230 0161 75040000 		.4byte	.LASF44
+ 231 0165 CC00     		.sleb128 76
+ 232 0167 06       		.uleb128 0x6
+ 233 0168 66020000 		.4byte	.LASF45
+ 234 016c CD00     		.sleb128 77
+ 235 016e 06       		.uleb128 0x6
+ 236 016f AB070000 		.4byte	.LASF46
+ 237 0173 CE00     		.sleb128 78
+ 238 0175 06       		.uleb128 0x6
+ 239 0176 0D040000 		.4byte	.LASF47
+ 240 017a CF00     		.sleb128 79
+ 241 017c 06       		.uleb128 0x6
+ 242 017d 89080000 		.4byte	.LASF48
+ 243 0181 D000     		.sleb128 80
+ 244 0183 06       		.uleb128 0x6
+ 245 0184 44060000 		.4byte	.LASF49
+ 246 0188 D100     		.sleb128 81
+ 247 018a 06       		.uleb128 0x6
+ 248 018b 2B030000 		.4byte	.LASF50
+ 249 018f D200     		.sleb128 82
+ 250 0191 06       		.uleb128 0x6
+ 251 0192 C3020000 		.4byte	.LASF51
+ 252 0196 D300     		.sleb128 83
+ 253 0198 06       		.uleb128 0x6
+ 254 0199 AA010000 		.4byte	.LASF52
+ 255 019d D400     		.sleb128 84
+ 256 019f 06       		.uleb128 0x6
+ 257 01a0 D2080000 		.4byte	.LASF53
+ 258 01a4 D500     		.sleb128 85
+ 259 01a6 06       		.uleb128 0x6
+ 260 01a7 67080000 		.4byte	.LASF54
+ 261 01ab D600     		.sleb128 86
+ 262 01ad 06       		.uleb128 0x6
+ 263 01ae 3E080000 		.4byte	.LASF55
+ 264 01b2 D700     		.sleb128 87
+ 265 01b4 06       		.uleb128 0x6
+ 266 01b5 CA030000 		.4byte	.LASF56
+ 267 01b9 F000     		.sleb128 112
+ 268 01bb 06       		.uleb128 0x6
+ 269 01bc 3A070000 		.4byte	.LASF57
+ 270 01c0 F100     		.sleb128 113
+ 271 01c2 06       		.uleb128 0x6
+ 272 01c3 F7050000 		.4byte	.LASF58
+ 273 01c7 F200     		.sleb128 114
+ 274 01c9 06       		.uleb128 0x6
+ 275 01ca E2010000 		.4byte	.LASF59
+ 276 01ce F300     		.sleb128 115
+ 277 01d0 06       		.uleb128 0x6
+ 278 01d1 9E030000 		.4byte	.LASF60
+ 279 01d5 F400     		.sleb128 116
+ 280 01d7 06       		.uleb128 0x6
+ARM GAS  C:\Users\KEVINH~1\AppData\Local\Temp\ccx53N8u.s 			page 8
+
+
+ 281 01d8 23050000 		.4byte	.LASF61
+ 282 01dc F500     		.sleb128 117
+ 283 01de 06       		.uleb128 0x6
+ 284 01df 00020000 		.4byte	.LASF62
+ 285 01e3 F600     		.sleb128 118
+ 286 01e5 06       		.uleb128 0x6
+ 287 01e6 1B070000 		.4byte	.LASF63
+ 288 01ea F700     		.sleb128 119
+ 289 01ec 06       		.uleb128 0x6
+ 290 01ed A0060000 		.4byte	.LASF64
+ 291 01f1 F800     		.sleb128 120
+ 292 01f3 06       		.uleb128 0x6
+ 293 01f4 CA060000 		.4byte	.LASF65
+ 294 01f8 F900     		.sleb128 121
+ 295 01fa 06       		.uleb128 0x6
+ 296 01fb 08080000 		.4byte	.LASF66
+ 297 01ff FA00     		.sleb128 122
+ 298 0201 06       		.uleb128 0x6
+ 299 0202 82060000 		.4byte	.LASF67
+ 300 0206 FA01     		.sleb128 250
+ 301 0208 06       		.uleb128 0x6
+ 302 0209 2C040000 		.4byte	.LASF68
+ 303 020d FB01     		.sleb128 251
+ 304 020f 06       		.uleb128 0x6
+ 305 0210 BC030000 		.4byte	.LASF69
+ 306 0214 FF01     		.sleb128 255
+ 307 0216 00       		.byte	0
+ 308 0217 07       		.uleb128 0x7
+ 309 0218 A8080000 		.4byte	.LASF71
+ 310 021c 03       		.byte	0x3
+ 311 021d 6201     		.2byte	0x162
+ 312 021f 6B000000 		.4byte	0x6b
+ 313 0223 08       		.uleb128 0x8
+ 314 0224 08       		.byte	0x8
+ 315 0225 04       		.byte	0x4
+ 316 0226 47       		.byte	0x47
+ 317 0227 44020000 		.4byte	0x244
+ 318 022b 09       		.uleb128 0x9
+ 319 022c ED060000 		.4byte	.LASF72
+ 320 0230 04       		.byte	0x4
+ 321 0231 4A       		.byte	0x4a
+ 322 0232 17020000 		.4byte	0x217
+ 323 0236 00       		.byte	0
+ 324 0237 09       		.uleb128 0x9
+ 325 0238 78010000 		.4byte	.LASF73
+ 326 023c 04       		.byte	0x4
+ 327 023d 4C       		.byte	0x4c
+ 328 023e 44020000 		.4byte	0x244
+ 329 0242 02       		.byte	0x2
+ 330 0243 00       		.byte	0
+ 331 0244 0A       		.uleb128 0xa
+ 332 0245 17020000 		.4byte	0x217
+ 333 0249 54020000 		.4byte	0x254
+ 334 024d 0B       		.uleb128 0xb
+ 335 024e 8B000000 		.4byte	0x8b
+ 336 0252 02       		.byte	0x2
+ 337 0253 00       		.byte	0
+ARM GAS  C:\Users\KEVINH~1\AppData\Local\Temp\ccx53N8u.s 			page 9
+
+
+ 338 0254 04       		.uleb128 0x4
+ 339 0255 A5020000 		.4byte	.LASF74
+ 340 0259 04       		.byte	0x4
+ 341 025a 4D       		.byte	0x4d
+ 342 025b 23020000 		.4byte	0x223
+ 343 025f 08       		.uleb128 0x8
+ 344 0260 0A       		.byte	0xa
+ 345 0261 04       		.byte	0x4
+ 346 0262 50       		.byte	0x50
+ 347 0263 80020000 		.4byte	0x280
+ 348 0267 09       		.uleb128 0x9
+ 349 0268 09010000 		.4byte	.LASF75
+ 350 026c 04       		.byte	0x4
+ 351 026d 53       		.byte	0x53
+ 352 026e 17020000 		.4byte	0x217
+ 353 0272 00       		.byte	0
+ 354 0273 09       		.uleb128 0x9
+ 355 0274 FE030000 		.4byte	.LASF76
+ 356 0278 04       		.byte	0x4
+ 357 0279 56       		.byte	0x56
+ 358 027a 80020000 		.4byte	0x280
+ 359 027e 02       		.byte	0x2
+ 360 027f 00       		.byte	0
+ 361 0280 0A       		.uleb128 0xa
+ 362 0281 54020000 		.4byte	0x254
+ 363 0285 90020000 		.4byte	0x290
+ 364 0289 0B       		.uleb128 0xb
+ 365 028a 8B000000 		.4byte	0x8b
+ 366 028e 00       		.byte	0
+ 367 028f 00       		.byte	0
+ 368 0290 04       		.uleb128 0x4
+ 369 0291 8E030000 		.4byte	.LASF77
+ 370 0295 04       		.byte	0x4
+ 371 0296 57       		.byte	0x57
+ 372 0297 5F020000 		.4byte	0x25f
+ 373 029b 0C       		.uleb128 0xc
+ 374 029c 2F010000 		.4byte	.LASF81
+ 375 02a0 01       		.byte	0x1
+ 376 02a1 5C       		.byte	0x5c
+ 377 02a2 00000000 		.4byte	.LFB2
+ 378 02a6 02000000 		.4byte	.LFE2-.LFB2
+ 379 02aa 01       		.uleb128 0x1
+ 380 02ab 9C       		.byte	0x9c
+ 381 02ac 0A       		.uleb128 0xa
+ 382 02ad 90020000 		.4byte	0x290
+ 383 02b1 BC020000 		.4byte	0x2bc
+ 384 02b5 0B       		.uleb128 0xb
+ 385 02b6 8B000000 		.4byte	0x8b
+ 386 02ba 01       		.byte	0x1
+ 387 02bb 00       		.byte	0
+ 388 02bc 0D       		.uleb128 0xd
+ 389 02bd C4080000 		.4byte	.LASF82
+ 390 02c1 01       		.byte	0x1
+ 391 02c2 19       		.byte	0x19
+ 392 02c3 CD020000 		.4byte	0x2cd
+ 393 02c7 05       		.uleb128 0x5
+ 394 02c8 03       		.byte	0x3
+ARM GAS  C:\Users\KEVINH~1\AppData\Local\Temp\ccx53N8u.s 			page 10
+
+
+ 395 02c9 00000000 		.4byte	cyBle_customs
+ 396 02cd 0E       		.uleb128 0xe
+ 397 02ce AC020000 		.4byte	0x2ac
+ 398 02d2 00       		.byte	0
+ 399              		.section	.debug_abbrev,"",%progbits
+ 400              	.Ldebug_abbrev0:
+ 401 0000 01       		.uleb128 0x1
+ 402 0001 11       		.uleb128 0x11
+ 403 0002 01       		.byte	0x1
+ 404 0003 25       		.uleb128 0x25
+ 405 0004 0E       		.uleb128 0xe
+ 406 0005 13       		.uleb128 0x13
+ 407 0006 0B       		.uleb128 0xb
+ 408 0007 03       		.uleb128 0x3
+ 409 0008 0E       		.uleb128 0xe
+ 410 0009 1B       		.uleb128 0x1b
+ 411 000a 0E       		.uleb128 0xe
+ 412 000b 55       		.uleb128 0x55
+ 413 000c 17       		.uleb128 0x17
+ 414 000d 11       		.uleb128 0x11
+ 415 000e 01       		.uleb128 0x1
+ 416 000f 10       		.uleb128 0x10
+ 417 0010 17       		.uleb128 0x17
+ 418 0011 00       		.byte	0
+ 419 0012 00       		.byte	0
+ 420 0013 02       		.uleb128 0x2
+ 421 0014 24       		.uleb128 0x24
+ 422 0015 00       		.byte	0
+ 423 0016 0B       		.uleb128 0xb
+ 424 0017 0B       		.uleb128 0xb
+ 425 0018 3E       		.uleb128 0x3e
+ 426 0019 0B       		.uleb128 0xb
+ 427 001a 03       		.uleb128 0x3
+ 428 001b 0E       		.uleb128 0xe
+ 429 001c 00       		.byte	0
+ 430 001d 00       		.byte	0
+ 431 001e 03       		.uleb128 0x3
+ 432 001f 24       		.uleb128 0x24
+ 433 0020 00       		.byte	0
+ 434 0021 0B       		.uleb128 0xb
+ 435 0022 0B       		.uleb128 0xb
+ 436 0023 3E       		.uleb128 0x3e
+ 437 0024 0B       		.uleb128 0xb
+ 438 0025 03       		.uleb128 0x3
+ 439 0026 08       		.uleb128 0x8
+ 440 0027 00       		.byte	0
+ 441 0028 00       		.byte	0
+ 442 0029 04       		.uleb128 0x4
+ 443 002a 16       		.uleb128 0x16
+ 444 002b 00       		.byte	0
+ 445 002c 03       		.uleb128 0x3
+ 446 002d 0E       		.uleb128 0xe
+ 447 002e 3A       		.uleb128 0x3a
+ 448 002f 0B       		.uleb128 0xb
+ 449 0030 3B       		.uleb128 0x3b
+ 450 0031 0B       		.uleb128 0xb
+ 451 0032 49       		.uleb128 0x49
+ARM GAS  C:\Users\KEVINH~1\AppData\Local\Temp\ccx53N8u.s 			page 11
+
+
+ 452 0033 13       		.uleb128 0x13
+ 453 0034 00       		.byte	0
+ 454 0035 00       		.byte	0
+ 455 0036 05       		.uleb128 0x5
+ 456 0037 04       		.uleb128 0x4
+ 457 0038 01       		.byte	0x1
+ 458 0039 0B       		.uleb128 0xb
+ 459 003a 0B       		.uleb128 0xb
+ 460 003b 3A       		.uleb128 0x3a
+ 461 003c 0B       		.uleb128 0xb
+ 462 003d 3B       		.uleb128 0x3b
+ 463 003e 0B       		.uleb128 0xb
+ 464 003f 01       		.uleb128 0x1
+ 465 0040 13       		.uleb128 0x13
+ 466 0041 00       		.byte	0
+ 467 0042 00       		.byte	0
+ 468 0043 06       		.uleb128 0x6
+ 469 0044 28       		.uleb128 0x28
+ 470 0045 00       		.byte	0
+ 471 0046 03       		.uleb128 0x3
+ 472 0047 0E       		.uleb128 0xe
+ 473 0048 1C       		.uleb128 0x1c
+ 474 0049 0D       		.uleb128 0xd
+ 475 004a 00       		.byte	0
+ 476 004b 00       		.byte	0
+ 477 004c 07       		.uleb128 0x7
+ 478 004d 16       		.uleb128 0x16
+ 479 004e 00       		.byte	0
+ 480 004f 03       		.uleb128 0x3
+ 481 0050 0E       		.uleb128 0xe
+ 482 0051 3A       		.uleb128 0x3a
+ 483 0052 0B       		.uleb128 0xb
+ 484 0053 3B       		.uleb128 0x3b
+ 485 0054 05       		.uleb128 0x5
+ 486 0055 49       		.uleb128 0x49
+ 487 0056 13       		.uleb128 0x13
+ 488 0057 00       		.byte	0
+ 489 0058 00       		.byte	0
+ 490 0059 08       		.uleb128 0x8
+ 491 005a 13       		.uleb128 0x13
+ 492 005b 01       		.byte	0x1
+ 493 005c 0B       		.uleb128 0xb
+ 494 005d 0B       		.uleb128 0xb
+ 495 005e 3A       		.uleb128 0x3a
+ 496 005f 0B       		.uleb128 0xb
+ 497 0060 3B       		.uleb128 0x3b
+ 498 0061 0B       		.uleb128 0xb
+ 499 0062 01       		.uleb128 0x1
+ 500 0063 13       		.uleb128 0x13
+ 501 0064 00       		.byte	0
+ 502 0065 00       		.byte	0
+ 503 0066 09       		.uleb128 0x9
+ 504 0067 0D       		.uleb128 0xd
+ 505 0068 00       		.byte	0
+ 506 0069 03       		.uleb128 0x3
+ 507 006a 0E       		.uleb128 0xe
+ 508 006b 3A       		.uleb128 0x3a
+ARM GAS  C:\Users\KEVINH~1\AppData\Local\Temp\ccx53N8u.s 			page 12
+
+
+ 509 006c 0B       		.uleb128 0xb
+ 510 006d 3B       		.uleb128 0x3b
+ 511 006e 0B       		.uleb128 0xb
+ 512 006f 49       		.uleb128 0x49
+ 513 0070 13       		.uleb128 0x13
+ 514 0071 38       		.uleb128 0x38
+ 515 0072 0B       		.uleb128 0xb
+ 516 0073 00       		.byte	0
+ 517 0074 00       		.byte	0
+ 518 0075 0A       		.uleb128 0xa
+ 519 0076 01       		.uleb128 0x1
+ 520 0077 01       		.byte	0x1
+ 521 0078 49       		.uleb128 0x49
+ 522 0079 13       		.uleb128 0x13
+ 523 007a 01       		.uleb128 0x1
+ 524 007b 13       		.uleb128 0x13
+ 525 007c 00       		.byte	0
+ 526 007d 00       		.byte	0
+ 527 007e 0B       		.uleb128 0xb
+ 528 007f 21       		.uleb128 0x21
+ 529 0080 00       		.byte	0
+ 530 0081 49       		.uleb128 0x49
+ 531 0082 13       		.uleb128 0x13
+ 532 0083 2F       		.uleb128 0x2f
+ 533 0084 0B       		.uleb128 0xb
+ 534 0085 00       		.byte	0
+ 535 0086 00       		.byte	0
+ 536 0087 0C       		.uleb128 0xc
+ 537 0088 2E       		.uleb128 0x2e
+ 538 0089 00       		.byte	0
+ 539 008a 3F       		.uleb128 0x3f
+ 540 008b 19       		.uleb128 0x19
+ 541 008c 03       		.uleb128 0x3
+ 542 008d 0E       		.uleb128 0xe
+ 543 008e 3A       		.uleb128 0x3a
+ 544 008f 0B       		.uleb128 0xb
+ 545 0090 3B       		.uleb128 0x3b
+ 546 0091 0B       		.uleb128 0xb
+ 547 0092 27       		.uleb128 0x27
+ 548 0093 19       		.uleb128 0x19
+ 549 0094 11       		.uleb128 0x11
+ 550 0095 01       		.uleb128 0x1
+ 551 0096 12       		.uleb128 0x12
+ 552 0097 06       		.uleb128 0x6
+ 553 0098 40       		.uleb128 0x40
+ 554 0099 18       		.uleb128 0x18
+ 555 009a 9742     		.uleb128 0x2117
+ 556 009c 19       		.uleb128 0x19
+ 557 009d 00       		.byte	0
+ 558 009e 00       		.byte	0
+ 559 009f 0D       		.uleb128 0xd
+ 560 00a0 34       		.uleb128 0x34
+ 561 00a1 00       		.byte	0
+ 562 00a2 03       		.uleb128 0x3
+ 563 00a3 0E       		.uleb128 0xe
+ 564 00a4 3A       		.uleb128 0x3a
+ 565 00a5 0B       		.uleb128 0xb
+ARM GAS  C:\Users\KEVINH~1\AppData\Local\Temp\ccx53N8u.s 			page 13
+
+
+ 566 00a6 3B       		.uleb128 0x3b
+ 567 00a7 0B       		.uleb128 0xb
+ 568 00a8 49       		.uleb128 0x49
+ 569 00a9 13       		.uleb128 0x13
+ 570 00aa 3F       		.uleb128 0x3f
+ 571 00ab 19       		.uleb128 0x19
+ 572 00ac 02       		.uleb128 0x2
+ 573 00ad 18       		.uleb128 0x18
+ 574 00ae 00       		.byte	0
+ 575 00af 00       		.byte	0
+ 576 00b0 0E       		.uleb128 0xe
+ 577 00b1 26       		.uleb128 0x26
+ 578 00b2 00       		.byte	0
+ 579 00b3 49       		.uleb128 0x49
+ 580 00b4 13       		.uleb128 0x13
+ 581 00b5 00       		.byte	0
+ 582 00b6 00       		.byte	0
+ 583 00b7 00       		.byte	0
+ 584              		.section	.debug_aranges,"",%progbits
+ 585 0000 1C000000 		.4byte	0x1c
+ 586 0004 0200     		.2byte	0x2
+ 587 0006 00000000 		.4byte	.Ldebug_info0
+ 588 000a 04       		.byte	0x4
+ 589 000b 00       		.byte	0
+ 590 000c 0000     		.2byte	0
+ 591 000e 0000     		.2byte	0
+ 592 0010 00000000 		.4byte	.LFB2
+ 593 0014 02000000 		.4byte	.LFE2-.LFB2
+ 594 0018 00000000 		.4byte	0
+ 595 001c 00000000 		.4byte	0
+ 596              		.section	.debug_ranges,"",%progbits
+ 597              	.Ldebug_ranges0:
+ 598 0000 00000000 		.4byte	.LFB2
+ 599 0004 02000000 		.4byte	.LFE2
+ 600 0008 00000000 		.4byte	0
+ 601 000c 00000000 		.4byte	0
+ 602              		.section	.debug_line,"",%progbits
+ 603              	.Ldebug_line0:
+ 604 0000 94000000 		.section	.debug_str,"MS",%progbits,1
+ 604      02007B00 
+ 604      00000201 
+ 604      FB0E0D00 
+ 604      01010101 
+ 605              	.LASF21:
+ 606 0000 4359424C 		.ascii	"CYBLE_EVT_GAP_PASSKEY_ENTRY_REQUEST\000"
+ 606      455F4556 
+ 606      545F4741 
+ 606      505F5041 
+ 606      53534B45 
+ 607              	.LASF27:
+ 608 0024 4359424C 		.ascii	"CYBLE_EVT_GAP_DEVICE_DISCONNECTED\000"
+ 608      455F4556 
+ 608      545F4741 
+ 608      505F4445 
+ 608      56494345 
+ 609              	.LASF2:
+ 610 0046 73686F72 		.ascii	"short int\000"
+ARM GAS  C:\Users\KEVINH~1\AppData\Local\Temp\ccx53N8u.s 			page 14
+
+
+ 610      7420696E 
+ 610      7400
+ 611              	.LASF24:
+ 612 0050 4359424C 		.ascii	"CYBLE_EVT_GAP_AUTH_FAILED\000"
+ 612      455F4556 
+ 612      545F4741 
+ 612      505F4155 
+ 612      54485F46 
+ 613              	.LASF78:
+ 614 006a 474E5520 		.ascii	"GNU C 4.8.4 20140526 (release) [ARM/embedded-4_8-br"
+ 614      4320342E 
+ 614      382E3420 
+ 614      32303134 
+ 614      30353236 
+ 615 009d 616E6368 		.ascii	"anch revision 211358] -mcpu=cortex-m0 -mthumb -g -O"
+ 615      20726576 
+ 615      6973696F 
+ 615      6E203231 
+ 615      31333538 
+ 616 00d0 67202D66 		.ascii	"g -ffunction-sections\000"
+ 616      66756E63 
+ 616      74696F6E 
+ 616      2D736563 
+ 616      74696F6E 
+ 617              	.LASF12:
+ 618 00e6 73697A65 		.ascii	"sizetype\000"
+ 618      74797065 
+ 618      00
+ 619              	.LASF32:
+ 620 00ef 4359424C 		.ascii	"CYBLE_EVT_GATTC_ERROR_RSP\000"
+ 620      455F4556 
+ 620      545F4741 
+ 620      5454435F 
+ 620      4552524F 
+ 621              	.LASF75:
+ 622 0109 63757374 		.ascii	"customServHandle\000"
+ 622      6F6D5365 
+ 622      72764861 
+ 622      6E646C65 
+ 622      00
+ 623              	.LASF17:
+ 624 011a 4359424C 		.ascii	"CYBLE_EVT_HCI_STATUS\000"
+ 624      455F4556 
+ 624      545F4843 
+ 624      495F5354 
+ 624      41545553 
+ 625              	.LASF81:
+ 626 012f 4379426C 		.ascii	"CyBle_CustomInit\000"
+ 626      655F4375 
+ 626      73746F6D 
+ 626      496E6974 
+ 626      00
+ 627              	.LASF14:
+ 628 0140 4359424C 		.ascii	"CYBLE_EVT_STACK_ON\000"
+ 628      455F4556 
+ 628      545F5354 
+ 628      41434B5F 
+ARM GAS  C:\Users\KEVINH~1\AppData\Local\Temp\ccx53N8u.s 			page 15
+
+
+ 628      4F4E00
+ 629              	.LASF35:
+ 630 0153 4359424C 		.ascii	"CYBLE_EVT_GATTS_XCNHG_MTU_REQ\000"
+ 630      455F4556 
+ 630      545F4741 
+ 630      5454535F 
+ 630      58434E48 
+ 631              	.LASF70:
+ 632 0171 75696E74 		.ascii	"uint16\000"
+ 632      313600
+ 633              	.LASF73:
+ 634 0178 63757374 		.ascii	"customServCharDesc\000"
+ 634      6F6D5365 
+ 634      72764368 
+ 634      61724465 
+ 634      736300
+ 635              	.LASF43:
+ 636 018b 4359424C 		.ascii	"CYBLE_EVT_GATTC_READ_MULTI_RSP\000"
+ 636      455F4556 
+ 636      545F4741 
+ 636      5454435F 
+ 636      52454144 
+ 637              	.LASF52:
+ 638 01aa 4359424C 		.ascii	"CYBLE_EVT_GATTS_HANDLE_VALUE_CNF\000"
+ 638      455F4556 
+ 638      545F4741 
+ 638      5454535F 
+ 638      48414E44 
+ 639              	.LASF13:
+ 640 01cb 4359424C 		.ascii	"CYBLE_EVT_HOST_INVALID\000"
+ 640      455F4556 
+ 640      545F484F 
+ 640      53545F49 
+ 640      4E56414C 
+ 641              	.LASF59:
+ 642 01e2 4359424C 		.ascii	"CYBLE_EVT_L2CAP_CBFC_CONN_IND\000"
+ 642      455F4556 
+ 642      545F4C32 
+ 642      4341505F 
+ 642      43424643 
+ 643              	.LASF62:
+ 644 0200 4359424C 		.ascii	"CYBLE_EVT_L2CAP_CBFC_DISCONN_CNF\000"
+ 644      455F4556 
+ 644      545F4C32 
+ 644      4341505F 
+ 644      43424643 
+ 645              	.LASF79:
+ 646 0221 2E5C4765 		.ascii	".\\Generated_Source\\PSoC4\\BLE_custom.c\000"
+ 646      6E657261 
+ 646      7465645F 
+ 646      536F7572 
+ 646      63655C50 
+ 647              	.LASF9:
+ 648 0247 666C6F61 		.ascii	"float\000"
+ 648      7400
+ 649              	.LASF41:
+ 650 024d 4359424C 		.ascii	"CYBLE_EVT_GATTC_READ_RSP\000"
+ARM GAS  C:\Users\KEVINH~1\AppData\Local\Temp\ccx53N8u.s 			page 16
+
+
+ 650      455F4556 
+ 650      545F4741 
+ 650      5454435F 
+ 650      52454144 
+ 651              	.LASF45:
+ 652 0266 4359424C 		.ascii	"CYBLE_EVT_GATTC_WRITE_RSP\000"
+ 652      455F4556 
+ 652      545F4741 
+ 652      5454435F 
+ 652      57524954 
+ 653              	.LASF6:
+ 654 0280 6C6F6E67 		.ascii	"long long int\000"
+ 654      206C6F6E 
+ 654      6720696E 
+ 654      7400
+ 655              	.LASF7:
+ 656 028e 6C6F6E67 		.ascii	"long long unsigned int\000"
+ 656      206C6F6E 
+ 656      6720756E 
+ 656      7369676E 
+ 656      65642069 
+ 657              	.LASF74:
+ 658 02a5 4359424C 		.ascii	"CYBLE_CUSTOMS_INFO_T\000"
+ 658      455F4355 
+ 658      53544F4D 
+ 658      535F494E 
+ 658      464F5F54 
+ 659              	.LASF4:
+ 660 02ba 6C6F6E67 		.ascii	"long int\000"
+ 660      20696E74 
+ 660      00
+ 661              	.LASF51:
+ 662 02c3 4359424C 		.ascii	"CYBLE_EVT_GATTC_HANDLE_VALUE_IND\000"
+ 662      455F4556 
+ 662      545F4741 
+ 662      5454435F 
+ 662      48414E44 
+ 663              	.LASF26:
+ 664 02e4 4359424C 		.ascii	"CYBLE_EVT_GAP_DEVICE_CONNECTED\000"
+ 664      455F4556 
+ 664      545F4741 
+ 664      505F4445 
+ 664      56494345 
+ 665              	.LASF25:
+ 666 0303 4359424C 		.ascii	"CYBLE_EVT_GAPP_ADVERTISEMENT_START_STOP\000"
+ 666      455F4556 
+ 666      545F4741 
+ 666      50505F41 
+ 666      44564552 
+ 667              	.LASF50:
+ 668 032b 4359424C 		.ascii	"CYBLE_EVT_GATTC_HANDLE_VALUE_NTF\000"
+ 668      455F4556 
+ 668      545F4741 
+ 668      5454435F 
+ 668      48414E44 
+ 669              	.LASF18:
+ 670 034c 4359424C 		.ascii	"CYBLE_EVT_STACK_BUSY_STATUS\000"
+ARM GAS  C:\Users\KEVINH~1\AppData\Local\Temp\ccx53N8u.s 			page 17
+
+
+ 670      455F4556 
+ 670      545F5354 
+ 670      41434B5F 
+ 670      42555359 
+ 671              	.LASF22:
+ 672 0368 4359424C 		.ascii	"CYBLE_EVT_GAP_PASSKEY_DISPLAY_REQUEST\000"
+ 672      455F4556 
+ 672      545F4741 
+ 672      505F5041 
+ 672      53534B45 
+ 673              	.LASF77:
+ 674 038e 4359424C 		.ascii	"CYBLE_CUSTOMS_T\000"
+ 674      455F4355 
+ 674      53544F4D 
+ 674      535F5400 
+ 675              	.LASF60:
+ 676 039e 4359424C 		.ascii	"CYBLE_EVT_L2CAP_CBFC_CONN_CNF\000"
+ 676      455F4556 
+ 676      545F4C32 
+ 676      4341505F 
+ 676      43424643 
+ 677              	.LASF69:
+ 678 03bc 4359424C 		.ascii	"CYBLE_EVT_MAX\000"
+ 678      455F4556 
+ 678      545F4D41 
+ 678      5800
+ 679              	.LASF56:
+ 680 03ca 4359424C 		.ascii	"CYBLE_EVT_L2CAP_CONN_PARAM_UPDATE_REQ\000"
+ 680      455F4556 
+ 680      545F4C32 
+ 680      4341505F 
+ 680      434F4E4E 
+ 681              	.LASF1:
+ 682 03f0 756E7369 		.ascii	"unsigned char\000"
+ 682      676E6564 
+ 682      20636861 
+ 682      7200
+ 683              	.LASF76:
+ 684 03fe 63757374 		.ascii	"customServInfo\000"
+ 684      6F6D5365 
+ 684      7276496E 
+ 684      666F00
+ 685              	.LASF47:
+ 686 040d 4359424C 		.ascii	"CYBLE_EVT_GATTS_PREP_WRITE_REQ\000"
+ 686      455F4556 
+ 686      545F4741 
+ 686      5454535F 
+ 686      50524550 
+ 687              	.LASF68:
+ 688 042c 4359424C 		.ascii	"CYBLE_EVT_LE_PING_AUTH_TIMEOUT\000"
+ 688      455F4556 
+ 688      545F4C45 
+ 688      5F50494E 
+ 688      475F4155 
+ 689              	.LASF39:
+ 690 044b 4359424C 		.ascii	"CYBLE_EVT_GATTC_FIND_INFO_RSP\000"
+ 690      455F4556 
+ARM GAS  C:\Users\KEVINH~1\AppData\Local\Temp\ccx53N8u.s 			page 18
+
+
+ 690      545F4741 
+ 690      5454435F 
+ 690      46494E44 
+ 691              	.LASF0:
+ 692 0469 7369676E 		.ascii	"signed char\000"
+ 692      65642063 
+ 692      68617200 
+ 693              	.LASF44:
+ 694 0475 4359424C 		.ascii	"CYBLE_EVT_GATTS_WRITE_REQ\000"
+ 694      455F4556 
+ 694      545F4741 
+ 694      5454535F 
+ 694      57524954 
+ 695              	.LASF40:
+ 696 048f 4359424C 		.ascii	"CYBLE_EVT_GATTC_FIND_BY_TYPE_VALUE_RSP\000"
+ 696      455F4556 
+ 696      545F4741 
+ 696      5454435F 
+ 696      46494E44 
+ 697              	.LASF23:
+ 698 04b6 4359424C 		.ascii	"CYBLE_EVT_GAP_AUTH_COMPLETE\000"
+ 698      455F4556 
+ 698      545F4741 
+ 698      505F4155 
+ 698      54485F43 
+ 699              	.LASF8:
+ 700 04d2 756E7369 		.ascii	"unsigned int\000"
+ 700      676E6564 
+ 700      20696E74 
+ 700      00
+ 701              	.LASF33:
+ 702 04df 4359424C 		.ascii	"CYBLE_EVT_GATT_CONNECT_IND\000"
+ 702      455F4556 
+ 702      545F4741 
+ 702      54545F43 
+ 702      4F4E4E45 
+ 703              	.LASF5:
+ 704 04fa 6C6F6E67 		.ascii	"long unsigned int\000"
+ 704      20756E73 
+ 704      69676E65 
+ 704      6420696E 
+ 704      7400
+ 705              	.LASF20:
+ 706 050c 4359424C 		.ascii	"CYBLE_EVT_GAP_AUTH_REQ\000"
+ 706      455F4556 
+ 706      545F4741 
+ 706      505F4155 
+ 706      54485F52 
+ 707              	.LASF61:
+ 708 0523 4359424C 		.ascii	"CYBLE_EVT_L2CAP_CBFC_DISCONN_IND\000"
+ 708      455F4556 
+ 708      545F4C32 
+ 708      4341505F 
+ 708      43424643 
+ 709              	.LASF28:
+ 710 0544 4359424C 		.ascii	"CYBLE_EVT_GAP_ENCRYPT_CHANGE\000"
+ 710      455F4556 
+ARM GAS  C:\Users\KEVINH~1\AppData\Local\Temp\ccx53N8u.s 			page 19
+
+
+ 710      545F4741 
+ 710      505F454E 
+ 710      43525950 
+ 711              	.LASF31:
+ 712 0561 4359424C 		.ascii	"CYBLE_EVT_GAP_KEYINFO_EXCHNGE_CMPLT\000"
+ 712      455F4556 
+ 712      545F4741 
+ 712      505F4B45 
+ 712      59494E46 
+ 713              	.LASF80:
+ 714 0585 433A5C55 		.ascii	"C:\\Users\\kevinhung\\Documents\\PSoC Creator\\BLE "
+ 714      73657273 
+ 714      5C6B6576 
+ 714      696E6875 
+ 714      6E675C44 
+ 715 05b3 4C616220 		.ascii	"Lab 4\\BLE Lab 4.cydsn\000"
+ 715      345C424C 
+ 715      45204C61 
+ 715      6220342E 
+ 715      63796473 
+ 716              	.LASF29:
+ 717 05c9 4359424C 		.ascii	"CYBLE_EVT_GAP_CONNECTION_UPDATE_COMPLETE\000"
+ 717      455F4556 
+ 717      545F4741 
+ 717      505F434F 
+ 717      4E4E4543 
+ 718              	.LASF11:
+ 719 05f2 63686172 		.ascii	"char\000"
+ 719      00
+ 720              	.LASF58:
+ 721 05f7 4359424C 		.ascii	"CYBLE_EVT_L2CAP_COMMAND_REJ\000"
+ 721      455F4556 
+ 721      545F4C32 
+ 721      4341505F 
+ 721      434F4D4D 
+ 722              	.LASF3:
+ 723 0613 73686F72 		.ascii	"short unsigned int\000"
+ 723      7420756E 
+ 723      7369676E 
+ 723      65642069 
+ 723      6E7400
+ 724              	.LASF42:
+ 725 0626 4359424C 		.ascii	"CYBLE_EVT_GATTC_READ_BLOB_RSP\000"
+ 725      455F4556 
+ 725      545F4741 
+ 725      5454435F 
+ 725      52454144 
+ 726              	.LASF49:
+ 727 0644 4359424C 		.ascii	"CYBLE_EVT_GATTC_EXEC_WRITE_RSP\000"
+ 727      455F4556 
+ 727      545F4741 
+ 727      5454435F 
+ 727      45584543 
+ 728              	.LASF30:
+ 729 0663 4359424C 		.ascii	"CYBLE_EVT_GAPC_SCAN_START_STOP\000"
+ 729      455F4556 
+ 729      545F4741 
+ARM GAS  C:\Users\KEVINH~1\AppData\Local\Temp\ccx53N8u.s 			page 20
+
+
+ 729      50435F53 
+ 729      43414E5F 
+ 730              	.LASF67:
+ 731 0682 4359424C 		.ascii	"CYBLE_EVT_PENDING_FLASH_WRITE\000"
+ 731      455F4556 
+ 731      545F5045 
+ 731      4E44494E 
+ 731      475F464C 
+ 732              	.LASF64:
+ 733 06a0 4359424C 		.ascii	"CYBLE_EVT_L2CAP_CBFC_RX_CREDIT_IND\000"
+ 733      455F4556 
+ 733      545F4C32 
+ 733      4341505F 
+ 733      43424643 
+ 734              	.LASF10:
+ 735 06c3 646F7562 		.ascii	"double\000"
+ 735      6C6500
+ 736              	.LASF65:
+ 737 06ca 4359424C 		.ascii	"CYBLE_EVT_L2CAP_CBFC_TX_CREDIT_IND\000"
+ 737      455F4556 
+ 737      545F4C32 
+ 737      4341505F 
+ 737      43424643 
+ 738              	.LASF72:
+ 739 06ed 63757374 		.ascii	"customServCharHandle\000"
+ 739      6F6D5365 
+ 739      72764368 
+ 739      61724861 
+ 739      6E646C65 
+ 740              	.LASF16:
+ 741 0702 4359424C 		.ascii	"CYBLE_EVT_HARDWARE_ERROR\000"
+ 741      455F4556 
+ 741      545F4841 
+ 741      52445741 
+ 741      52455F45 
+ 742              	.LASF63:
+ 743 071b 4359424C 		.ascii	"CYBLE_EVT_L2CAP_CBFC_DATA_READ\000"
+ 743      455F4556 
+ 743      545F4C32 
+ 743      4341505F 
+ 743      43424643 
+ 744              	.LASF57:
+ 745 073a 4359424C 		.ascii	"CYBLE_EVT_L2CAP_CONN_PARAM_UPDATE_RSP\000"
+ 745      455F4556 
+ 745      545F4C32 
+ 745      4341505F 
+ 745      434F4E4E 
+ 746              	.LASF19:
+ 747 0760 4359424C 		.ascii	"CYBLE_EVT_GAPC_SCAN_PROGRESS_RESULT\000"
+ 747      455F4556 
+ 747      545F4741 
+ 747      50435F53 
+ 747      43414E5F 
+ 748              	.LASF37:
+ 749 0784 4359424C 		.ascii	"CYBLE_EVT_GATTC_READ_BY_GROUP_TYPE_RSP\000"
+ 749      455F4556 
+ 749      545F4741 
+ARM GAS  C:\Users\KEVINH~1\AppData\Local\Temp\ccx53N8u.s 			page 21
+
+
+ 749      5454435F 
+ 749      52454144 
+ 750              	.LASF46:
+ 751 07ab 4359424C 		.ascii	"CYBLE_EVT_GATTS_WRITE_CMD_REQ\000"
+ 751      455F4556 
+ 751      545F4741 
+ 751      5454535F 
+ 751      57524954 
+ 752              	.LASF38:
+ 753 07c9 4359424C 		.ascii	"CYBLE_EVT_GATTC_READ_BY_TYPE_RSP\000"
+ 753      455F4556 
+ 753      545F4741 
+ 753      5454435F 
+ 753      52454144 
+ 754              	.LASF36:
+ 755 07ea 4359424C 		.ascii	"CYBLE_EVT_GATTC_XCHNG_MTU_RSP\000"
+ 755      455F4556 
+ 755      545F4741 
+ 755      5454435F 
+ 755      5843484E 
+ 756              	.LASF66:
+ 757 0808 4359424C 		.ascii	"CYBLE_EVT_L2CAP_CBFC_DATA_WRITE_IND\000"
+ 757      455F4556 
+ 757      545F4C32 
+ 757      4341505F 
+ 757      43424643 
+ 758              	.LASF15:
+ 759 082c 4359424C 		.ascii	"CYBLE_EVT_TIMEOUT\000"
+ 759      455F4556 
+ 759      545F5449 
+ 759      4D454F55 
+ 759      5400
+ 760              	.LASF55:
+ 761 083e 4359424C 		.ascii	"CYBLE_EVT_GATTS_READ_CHAR_VAL_ACCESS_REQ\000"
+ 761      455F4556 
+ 761      545F4741 
+ 761      5454535F 
+ 761      52454144 
+ 762              	.LASF54:
+ 763 0867 4359424C 		.ascii	"CYBLE_EVT_GATTC_STOP_CMD_COMPLETE\000"
+ 763      455F4556 
+ 763      545F4741 
+ 763      5454435F 
+ 763      53544F50 
+ 764              	.LASF48:
+ 765 0889 4359424C 		.ascii	"CYBLE_EVT_GATTS_EXEC_WRITE_REQ\000"
+ 765      455F4556 
+ 765      545F4741 
+ 765      5454535F 
+ 765      45584543 
+ 766              	.LASF71:
+ 767 08a8 4359424C 		.ascii	"CYBLE_GATT_DB_ATTR_HANDLE_T\000"
+ 767      455F4741 
+ 767      54545F44 
+ 767      425F4154 
+ 767      54525F48 
+ 768              	.LASF82:
+ARM GAS  C:\Users\KEVINH~1\AppData\Local\Temp\ccx53N8u.s 			page 22
+
+
+ 769 08c4 6379426C 		.ascii	"cyBle_customs\000"
+ 769      655F6375 
+ 769      73746F6D 
+ 769      7300
+ 770              	.LASF53:
+ 771 08d2 4359424C 		.ascii	"CYBLE_EVT_GATTS_DATA_SIGNED_CMD_REQ\000"
+ 771      455F4556 
+ 771      545F4741 
+ 771      5454535F 
+ 771      44415441 
+ 772              	.LASF34:
+ 773 08f6 4359424C 		.ascii	"CYBLE_EVT_GATT_DISCONNECT_IND\000"
+ 773      455F4556 
+ 773      545F4741 
+ 773      54545F44 
+ 773      4953434F 
+ 774              		.ident	"GCC: (GNU Tools for ARM Embedded Processors) 4.8.4 20140526 (release) [ARM/embedded-4_8-br
