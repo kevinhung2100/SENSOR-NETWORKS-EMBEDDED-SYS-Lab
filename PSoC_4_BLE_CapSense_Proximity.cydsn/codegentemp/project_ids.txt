@@ -1,0 +1,5 @@
+C:\Users\tanushree\Desktop\SES\Project\PSoC_4_BLE_CapSense_Proximity.cywrk.Archive01\PSoC_4_BLE_CapSense_Proximity\PSoC_4_BLE_CapSense_Proximity.cydsn\PSoC_4_BLE_CapSense_Proximity.cyprj|6d9d516a-abb6-4db9-aa74-6eecfd03e790
+C:\Program Files (x86)\Cypress\PSoC Creator\3.2\PSoC Creator\psoc\content\default\CyAnnotationLibrary\CyAnnotationLibrary.cylib\CyAnnotationLibrary.cyprj|950e45aa-e522-4aff-9954-a43ebf9e6564
+C:\Program Files (x86)\Cypress\PSoC Creator\3.2\PSoC Creator\psoc\content\cycomponentlibraryupdates\CyComponentLibraryUpdates.cylib\CyComponentLibraryUpdates.cyprj|cf811aff-8afa-4b9f-bf97-66af5e256cbb
+C:\Program Files (x86)\Cypress\PSoC Creator\3.2\PSoC Creator\psoc\content\cycomponentlibrary\CyComponentLibrary.cylib\CyComponentLibrary.cyprj|9072a3a3-2cbe-4c4e-aa1d-06207b508154
+C:\Program Files (x86)\Cypress\PSoC Creator\3.2\PSoC Creator\psoc\content\cyprimitives\CyPrimitives.cylib\CyPrimitives.cyprj|017c4a89-0e1e-4a05-be14-c6402e81c31f
